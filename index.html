@@ -6,13 +6,13 @@
     <meta name="theme-color" content="#0a0a1a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="description" content="Cosmic Explorer — Dashboard NASA live cu tracking sateliți, asteroizi, și imagini din spațiu">
+    <meta name="description" content="Cosmic Explorer — Dashboard NASA live cu tracking sateliti, asteroizi, lansari, stiri si imagini din spatiu">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌌</text></svg>">
-    <title>🌌 Cosmic Explorer — NASA Live Dashboard</title>
+    <title>Cosmic Explorer — NASA Live Dashboard</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap');
 
@@ -22,6 +22,8 @@
             --primary: #00d4ff;
             --secondary: #7b2ff7;
             --accent: #ff6b6b;
+            --orange: #ff9f43;
+            --teal: #00cec9;
             --dark: #0a0a1a;
             --card-bg: rgba(15, 15, 40, 0.85);
             --glow: 0 0 20px rgba(0, 212, 255, 0.3);
@@ -48,7 +50,7 @@
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 100;
-            background: rgba(10, 10, 26, 0.9);
+            background: rgba(10, 10, 26, 0.92);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(0, 212, 255, 0.2);
             padding: 0.8rem 2rem;
@@ -59,24 +61,26 @@
 
         .logo {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 900;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: none;
+            white-space: nowrap;
         }
 
         .nav-links {
             display: flex;
-            gap: 1.5rem;
+            gap: 1.2rem;
             list-style: none;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         .nav-links a {
             color: #aaa;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.82rem;
             transition: color 0.3s;
             font-weight: 400;
         }
@@ -112,7 +116,7 @@
         .hero p {
             font-size: clamp(1rem, 2vw, 1.3rem);
             color: #8899aa;
-            max-width: 600px;
+            max-width: 700px;
             animation: fadeInUp 1s ease 0.3s both;
         }
 
@@ -158,6 +162,9 @@
         .section-title span {
             color: var(--primary);
         }
+
+        .section-title .orange { color: var(--orange); }
+        .section-title .teal { color: var(--teal); }
 
         .section-subtitle {
             color: #667;
@@ -223,11 +230,6 @@
             gap: 1.5rem;
         }
 
-        @media (max-width: 768px) {
-            .iss-container { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
-        }
-
         .iss-map {
             background: var(--card-bg);
             border: 1px solid rgba(0, 212, 255, 0.15);
@@ -290,7 +292,56 @@
             animation: pulse 1.5s infinite;
         }
 
-        /* ===== SATELLITES TABLE ===== */
+        /* ===== SATELLITES ===== */
+        .sat-search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .sat-search-bar input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.8rem 1.2rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(123, 47, 247, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            font-family: 'Exo 2', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .sat-search-bar input:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 15px rgba(123, 47, 247, 0.2);
+        }
+
+        .sat-search-bar .sat-count {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #889;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .sat-map-wrap {
+            background: var(--card-bg);
+            border: 1px solid rgba(123, 47, 247, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            aspect-ratio: 2/1;
+            position: relative;
+        }
+
+        .sat-map-wrap canvas {
+            width: 100%;
+            height: 100%;
+        }
+
         .sat-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -310,6 +361,11 @@
             border-color: var(--secondary);
         }
 
+        .sat-card.top-sat {
+            border-color: rgba(123, 47, 247, 0.45);
+            box-shadow: 0 0 15px rgba(123, 47, 247, 0.15);
+        }
+
         .sat-card h4 {
             font-family: 'Orbitron', sans-serif;
             font-size: 0.85rem;
@@ -326,11 +382,86 @@
         }
 
         .sat-card .sat-detail:last-child { border: none; }
-
         .sat-card .sat-detail span:first-child { color: #889; }
         .sat-card .sat-detail span:last-child { color: #ccc; font-family: 'Orbitron', sans-serif; font-size: 0.75rem; }
 
-        /* ===== NEO (Near Earth Objects) ===== */
+        .sat-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 0.5rem;
+        }
+
+        .sat-badge.live { background: rgba(0,255,100,0.15); color: #00ff88; }
+        .sat-badge.db { background: rgba(123,47,247,0.15); color: #b388ff; }
+
+        /* ===== LAUNCHES (orange theme) ===== */
+        .launch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1rem;
+        }
+
+        .launch-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 159, 67, 0.2);
+            border-radius: 12px;
+            padding: 1.3rem;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .launch-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--orange);
+        }
+
+        .launch-card h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: var(--orange);
+            margin-bottom: 0.6rem;
+        }
+
+        .launch-detail {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            padding: 0.35rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .launch-detail:last-child { border: none; }
+        .launch-detail span:first-child { color: #889; }
+        .launch-detail span:last-child { color: #ddd; }
+
+        .launch-countdown {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            color: var(--orange);
+            margin-top: 0.6rem;
+            padding: 0.5rem;
+            background: rgba(255, 159, 67, 0.08);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .launch-status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .launch-status.go { background: rgba(0,255,100,0.15); color: #00ff88; }
+        .launch-status.tbd { background: rgba(255,159,67,0.15); color: var(--orange); }
+        .launch-status.tbc { background: rgba(0,212,255,0.15); color: var(--primary); }
+
+        /* ===== NEO ===== */
         .neo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -420,6 +551,63 @@
         .mars-card .mars-info p {
             font-size: 0.8rem;
             color: #889;
+        }
+
+        /* ===== NEWS (teal theme) ===== */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1rem;
+        }
+
+        .news-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 206, 201, 0.2);
+            border-radius: 12px;
+            padding: 1.3rem;
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--teal);
+        }
+
+        .news-card h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: var(--teal);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .news-card .news-meta {
+            font-size: 0.75rem;
+            color: #778;
+            margin-bottom: 0.6rem;
+        }
+
+        .news-card .news-summary {
+            font-size: 0.85rem;
+            color: #b0b8c0;
+            line-height: 1.5;
+            flex: 1;
+            margin-bottom: 0.8rem;
+        }
+
+        .news-card .news-link {
+            display: inline-block;
+            color: var(--teal);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .news-card .news-link:hover {
+            color: #fff;
         }
 
         /* ===== LOADER ===== */
@@ -542,6 +730,15 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--dark); }
         ::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.3); border-radius: 4px; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .iss-container { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .sat-map-wrap { aspect-ratio: 16/10; }
+            .launch-grid { grid-template-columns: 1fr; }
+            .news-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -551,36 +748,38 @@
 
 <!-- NAVBAR -->
 <nav>
-    <div class="logo">&#x1F30C; COSMIC EXPLORER</div>
+    <div class="logo">COSMIC EXPLORER</div>
     <ul class="nav-links">
         <li><a href="#apod" class="active">APOD</a></li>
-        <li><a href="#iss">ISS Tracker</a></li>
-        <li><a href="#satellites">Sateliți</a></li>
+        <li><a href="#iss">ISS</a></li>
+        <li><a href="#satellites">Sateliti</a></li>
+        <li><a href="#launches">Lansari</a></li>
         <li><a href="#neo">Asteroizi</a></li>
         <li><a href="#mars">Mars</a></li>
+        <li><a href="#news">Stiri</a></li>
     </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
     <h1>COSMIC EXPLORER</h1>
-    <p>Date live de la NASA, tracking sateliți în timp real și imagini din adâncul universului — totul într-un singur dashboard.</p>
+    <p>Date live de la NASA, tracking sateliti in timp real, lansari de rachete, stiri din spatiu si imagini din adancul universului — totul intr-un singur dashboard.</p>
     <div class="scroll-hint">&#x25BC;</div>
 </section>
 
 <!-- APOD -->
 <section class="section" id="apod">
-    <h2 class="section-title">&#x1F4F7; Imaginea Zilei <span>NASA APOD</span></h2>
-    <p class="section-subtitle">Astronomy Picture of the Day — o nouă imagine spectaculoasă în fiecare zi</p>
+    <h2 class="section-title">Imaginea Zilei <span>NASA APOD</span></h2>
+    <p class="section-subtitle">Astronomy Picture of the Day — o noua imagine spectaculoasa in fiecare zi</p>
     <div id="apod-container">
-        <div class="loader"><div class="spinner"></div>Se încarcă imaginea zilei...</div>
+        <div class="loader"><div class="spinner"></div>Se incarca imaginea zilei...</div>
     </div>
 </section>
 
 <!-- ISS TRACKER -->
 <section class="section" id="iss">
-    <h2 class="section-title">&#x1F6F0;&#xFE0F; ISS Tracker <span>Live</span></h2>
-    <p class="section-subtitle"><span class="live-dot"></span>Stația Spațială Internațională — poziție actualizată în timp real</p>
+    <h2 class="section-title">ISS Tracker <span>Live</span></h2>
+    <p class="section-subtitle"><span class="live-dot"></span>Statia Spatiala Internationala — pozitie actualizata in timp real</p>
     <div class="iss-container">
         <div class="iss-map">
             <canvas id="issCanvas"></canvas>
@@ -597,15 +796,15 @@
             <div class="stat-card">
                 <div class="label">Altitudine</div>
                 <div class="value" id="issAlt">--</div>
-                <div class="sub">kilometri deasupra Pământului</div>
+                <div class="sub">kilometri deasupra Pamantului</div>
             </div>
             <div class="stat-card">
-                <div class="label">Viteză</div>
+                <div class="label">Viteza</div>
                 <div class="value" id="issVel">--</div>
                 <div class="sub">km/h</div>
             </div>
             <div class="stat-card">
-                <div class="label">Persoane în spațiu</div>
+                <div class="label">Persoane in spatiu</div>
                 <div class="value" id="issPeople">--</div>
                 <div class="sub" id="issPeopleNames"></div>
             </div>
@@ -615,57 +814,82 @@
 
 <!-- SATELLITES -->
 <section class="section" id="satellites">
-    <h2 class="section-title">&#x1F4E1; Sateliți <span>în Orbită</span></h2>
-    <p class="section-subtitle">Sateliți importanți urmăriți în timp real prin TLE data</p>
+    <h2 class="section-title">Sateliti <span>in Orbita</span></h2>
+    <p class="section-subtitle"><span class="live-dot"></span>50+ sateliti notabili — date live si harta in timp real</p>
+    <div class="sat-search-bar">
+        <input type="text" id="satSearch" placeholder="Cauta satelit dupa nume (ex: Hubble, JWST, Starlink...)">
+        <div class="sat-count" id="satCount">0 sateliti</div>
+    </div>
+    <div class="sat-map-wrap">
+        <canvas id="satMapCanvas"></canvas>
+    </div>
     <div class="sat-grid" id="sat-container">
-        <div class="loader"><div class="spinner"></div>Se încarcă datele sateliților...</div>
+        <div class="loader"><div class="spinner"></div>Se incarca datele satelitilor...</div>
+    </div>
+</section>
+
+<!-- ROCKET LAUNCHES -->
+<section class="section" id="launches">
+    <h2 class="section-title">Lansari de Rachete <span class="orange">Upcoming</span></h2>
+    <p class="section-subtitle">Urmatoarele lansari spatiale programate din intreaga lume</p>
+    <div class="launch-grid" id="launch-container">
+        <div class="loader"><div class="spinner"></div>Se incarca lansarile...</div>
     </div>
 </section>
 
 <!-- NEO -->
 <section class="section" id="neo">
-    <h2 class="section-title">&#x2604;&#xFE0F; Asteroizi <span>Near Earth Objects</span></h2>
-    <p class="section-subtitle">Obiecte apropiate de Pământ detectate de NASA astăzi</p>
+    <h2 class="section-title">Asteroizi <span>Near Earth Objects</span></h2>
+    <p class="section-subtitle">Obiecte apropiate de Pamant detectate de NASA astazi</p>
     <div class="neo-grid" id="neo-container">
-        <div class="loader"><div class="spinner"></div>Se scanează asteroizii...</div>
+        <div class="loader"><div class="spinner"></div>Se scaneaza asteroizii...</div>
     </div>
 </section>
 
 <!-- MARS ROVER -->
 <section class="section" id="mars">
-    <h2 class="section-title">&#x1FA90; Mars Rover <span>Curiosity</span></h2>
-    <p class="section-subtitle">Ultimele fotografii de pe suprafața planetei Marte</p>
+    <h2 class="section-title">Mars Rover <span>Curiosity & Perseverance</span></h2>
+    <p class="section-subtitle">Ultimele fotografii de pe suprafata planetei Marte</p>
     <div class="mars-grid" id="mars-container">
-        <div class="loader"><div class="spinner"></div>Se descarcă imaginile de pe Marte...</div>
+        <div class="loader"><div class="spinner"></div>Se descarca imaginile de pe Marte...</div>
+    </div>
+</section>
+
+<!-- SPACE NEWS -->
+<section class="section" id="news">
+    <h2 class="section-title">Stiri din Spatiu <span class="teal">Live Feed</span></h2>
+    <p class="section-subtitle">Ultimele articole si evenimente din domeniul spatial</p>
+    <div class="news-grid" id="news-container">
+        <div class="loader"><div class="spinner"></div>Se incarca stirile...</div>
     </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-    <p>Creat cu &#x2764;&#xFE0F; pentru explorarea cosmosului &bull; Date furnizate de <a href="https://api.nasa.gov" target="_blank">NASA Open APIs</a> &bull; 2026</p>
+    <p>Creat pentru explorarea cosmosului &bull; Date furnizate de <a href="https://api.nasa.gov" target="_blank">NASA Open APIs</a>, <a href="https://thespacedevs.com" target="_blank">The Space Devs</a>, <a href="https://spaceflightnewsapi.net" target="_blank">SNAPI</a> &bull; 2026</p>
     <p style="margin-top: 0.5rem;">
-        <a href="#" onclick="showApiModal(); return false;">&#x2699;&#xFE0F; Setări API Key</a>
+        <a href="#" onclick="showApiModal(); return false;">Setari API Key</a>
     </p>
 </footer>
 
 <!-- API KEY MODAL -->
 <div class="modal-overlay" id="apiModal">
     <div class="modal">
-        <h2>&#x1F511; NASA API Key</h2>
-        <p>Obține gratuit un API key de la <a href="https://api.nasa.gov" target="_blank" style="color: var(--primary);">api.nasa.gov</a> pentru acces nelimitat. Fără key, folosim DEMO_KEY (limitat la 30 req/oră).</p>
+        <h2>NASA API Key</h2>
+        <p>Obtine gratuit un API key de la <a href="https://api.nasa.gov" target="_blank" style="color: var(--primary);">api.nasa.gov</a> pentru acces nelimitat. Fara key, folosim DEMO_KEY (limitat la 30 req/ora).</p>
         <input type="text" id="apiKeyInput" placeholder="Introdu NASA API Key...">
         <div class="btn-row">
-            <button class="btn-secondary" onclick="closeApiModal()">Anulează</button>
-            <button class="btn-primary" onclick="saveApiKey()">Salvează</button>
+            <button class="btn-secondary" onclick="closeApiModal()">Anuleaza</button>
+            <button class="btn-primary" onclick="saveApiKey()">Salveaza</button>
         </div>
     </div>
 </div>
 
 <script>
-// ================================================
+// ================================================================
 // CONFIG
-// ================================================
-let NASA_API_KEY = 'DEMO_KEY';
+// ================================================================
+let NASA_API_KEY = localStorage.getItem('nasa_api_key') || 'DEMO_KEY';
 
 function showApiModal() {
     document.getElementById('apiModal').classList.add('active');
@@ -678,14 +902,78 @@ function closeApiModal() {
 
 function saveApiKey() {
     const key = document.getElementById('apiKeyInput').value.trim();
-    if (key) NASA_API_KEY = key;
+    if (key) {
+        NASA_API_KEY = key;
+        localStorage.setItem('nasa_api_key', key);
+    }
     closeApiModal();
     loadAllData();
 }
 
-// ================================================
+// ================================================================
+// SATELLITE DATABASE (50+ satellites)
+// ================================================================
+const SATELLITE_DB = [
+    { name: 'ISS (ZARYA)', noradId: 25544, type: 'Statie Spatiala', operator: 'International' },
+    { name: 'HUBBLE', noradId: 20580, type: 'Telescop Spatial', operator: 'NASA/ESA' },
+    { name: 'TIANGONG', noradId: 54216, type: 'Statie Spatiala', operator: 'CNSA (China)' },
+    { name: 'TERRA', noradId: 25994, type: 'Observare Pamant', operator: 'NASA' },
+    { name: 'AQUA', noradId: 27424, type: 'Observare Pamant', operator: 'NASA' },
+    { name: 'LANDSAT 9', noradId: 49260, type: 'Observare Pamant', operator: 'NASA/USGS' },
+    { name: 'GOES-16', noradId: 41866, type: 'Meteorologic Geo', operator: 'NOAA' },
+    { name: 'JASON-3', noradId: 41240, type: 'Oceanografie', operator: 'NASA/CNES' },
+    { name: 'NOAA-20 (JPSS-1)', noradId: 43013, type: 'Meteorologic', operator: 'NOAA' },
+    { name: 'SUOMI NPP', noradId: 37849, type: 'Meteorologic', operator: 'NASA/NOAA' },
+    { name: 'METOP-B', noradId: 38771, type: 'Meteorologic', operator: 'EUMETSAT' },
+    { name: 'SENTINEL-2A', noradId: 40697, type: 'Observare Pamant', operator: 'ESA' },
+    { name: 'GPS IIR-M 1', noradId: 28874, type: 'Navigatie GPS', operator: 'USSF' },
+    { name: 'GPS IIR-M 2', noradId: 29486, type: 'Navigatie GPS', operator: 'USSF' },
+    { name: 'GPS IIR-M 3', noradId: 32260, type: 'Navigatie GPS', operator: 'USSF' },
+    { name: 'GPS IIR-M 4', noradId: 32384, type: 'Navigatie GPS', operator: 'USSF' },
+    { name: 'STARLINK-1007', noradId: 44713, type: 'Internet Constelatie', operator: 'SpaceX' },
+    { name: 'STARLINK-1130', noradId: 44914, type: 'Internet Constelatie', operator: 'SpaceX' },
+    { name: 'STARLINK-2483', noradId: 48601, type: 'Internet Constelatie', operator: 'SpaceX' },
+    { name: 'STARLINK-30046', noradId: 56174, type: 'Internet Constelatie', operator: 'SpaceX' },
+    { name: 'ONEWEB-0012', noradId: 44057, type: 'Internet Constelatie', operator: 'OneWeb' },
+    { name: 'ONEWEB-0036', noradId: 44064, type: 'Internet Constelatie', operator: 'OneWeb' },
+    { name: 'IRIDIUM NEXT 106', noradId: 42804, type: 'Comunicatii', operator: 'Iridium' },
+    { name: 'IRIDIUM NEXT 112', noradId: 42808, type: 'Comunicatii', operator: 'Iridium' },
+    { name: 'IRIDIUM NEXT 137', noradId: 43571, type: 'Comunicatii', operator: 'Iridium' },
+    { name: 'TDRS 13', noradId: 43077, type: 'Releu Date (TDRSS)', operator: 'NASA' },
+    { name: 'TDRS 11', noradId: 39070, type: 'Releu Date (TDRSS)', operator: 'NASA' },
+    { name: 'ICESAT-2', noradId: 43613, type: 'Altimetru Laser', operator: 'NASA' },
+    { name: 'CLOUDSAT', noradId: 29107, type: 'Studiu Nori', operator: 'NASA/CSA' },
+    { name: 'CALIPSO', noradId: 29108, type: 'Studiu Atmosfera', operator: 'NASA/CNES' },
+    { name: 'AURA', noradId: 28376, type: 'Chimie Atmosferica', operator: 'NASA' },
+    { name: 'DSCOVR', noradId: 40390, type: 'Vant Solar (L1)', operator: 'NOAA/NASA' },
+    { name: 'STEREO-A', noradId: 29510, type: 'Observator Solar', operator: 'NASA' },
+    { name: 'SDO', noradId: 36395, type: 'Observator Solar', operator: 'NASA' },
+    { name: 'CHANDRA X-RAY', noradId: 25867, type: 'Telescop X-Ray', operator: 'NASA' },
+    { name: 'INTEGRAL', noradId: 27540, type: 'Telescop Gamma', operator: 'ESA' },
+    { name: 'XMM-NEWTON', noradId: 25989, type: 'Telescop X-Ray', operator: 'ESA' },
+    { name: 'FERMI GLAST', noradId: 33053, type: 'Telescop Gamma', operator: 'NASA' },
+    { name: 'SWIFT', noradId: 28485, type: 'Telescop Multi-Unda', operator: 'NASA' },
+    { name: 'WISE / NEOWISE', noradId: 36119, type: 'Infrarosu', operator: 'NASA' },
+    { name: 'GAIA', noradId: 39479, type: 'Astrometrie', operator: 'ESA' },
+    { name: 'JWST', noradId: 50463, type: 'Telescop Spatial IR', operator: 'NASA/ESA/CSA' },
+    { name: 'TESS', noradId: 43435, type: 'Vanatoare Exoplanete', operator: 'NASA' },
+    { name: 'COSMOS 2251 DEB', noradId: 34454, type: 'Debris', operator: 'Rusia (defunct)' },
+    { name: 'CBERS 4A', noradId: 44883, type: 'Observare Pamant', operator: 'INPE/CAST' },
+    { name: 'RESOURCESAT-2A', noradId: 41877, type: 'Observare Pamant', operator: 'ISRO' },
+    { name: 'CARTOSAT-3', noradId: 44804, type: 'Observare Pamant', operator: 'ISRO' },
+    { name: 'METEOR-M 2-2', noradId: 44387, type: 'Meteorologic', operator: 'Roscosmos' },
+    { name: 'FENGYUN-3D', noradId: 43010, type: 'Meteorologic', operator: 'CMA (China)' },
+    { name: 'COSMO-SKYMED 2', noradId: 37216, type: 'Radar SAR', operator: 'ASI (Italia)' },
+    { name: 'RADARSAT-2', noradId: 32382, type: 'Radar SAR', operator: 'CSA (Canada)' },
+    { name: 'HAYABUSA2', noradId: 40319, type: 'Sonda Asteroizi', operator: 'JAXA' },
+    { name: 'SPEKTR-RG', noradId: 44432, type: 'Telescop X-Ray', operator: 'Roscosmos/DLR' },
+];
+
+const TOP5_IDS = [25544, 20580, 54216, 50463, 44713];
+
+// ================================================================
 // STARFIELD ANIMATION
-// ================================================
+// ================================================================
 (function initStarfield() {
     const canvas = document.getElementById('starfield');
     const ctx = canvas.getContext('2d');
@@ -738,9 +1026,9 @@ function saveApiKey() {
     animate();
 })();
 
-// ================================================
+// ================================================================
 // SMOOTH SCROLL NAV
-// ================================================
+// ================================================================
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', e => {
         e.preventDefault();
@@ -751,9 +1039,9 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
 });
 
-// ================================================
+// ================================================================
 // NASA APOD
-// ================================================
+// ================================================================
 async function loadAPOD() {
     try {
         const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`);
@@ -772,19 +1060,19 @@ async function loadAPOD() {
                 ${media}
                 <div class="apod-info">
                     <h3>${data.title}</h3>
-                    <div class="date">${data.date} ${data.copyright ? '• © ' + data.copyright : ''}</div>
+                    <div class="date">${data.date} ${data.copyright ? '• &copy; ' + data.copyright : ''}</div>
                     <p>${data.explanation}</p>
                 </div>
             </div>
         `;
     } catch (e) {
-        document.getElementById('apod-container').innerHTML = `<div class="loader">Nu s-a putut încărca APOD. Verifică API key-ul.</div>`;
+        document.getElementById('apod-container').innerHTML = `<div class="loader">Nu s-a putut incarca APOD. Verifica API key-ul.</div>`;
     }
 }
 
-// ================================================
+// ================================================================
 // ISS TRACKER
-// ================================================
+// ================================================================
 const worldMapImg = new Image();
 worldMapImg.crossOrigin = 'anonymous';
 worldMapImg.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Equirectangular-projection.jpg/1280px-Equirectangular-projection.jpg';
@@ -796,12 +1084,11 @@ async function updateISS() {
         const res = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
         const data = await res.json();
 
-        document.getElementById('issLat').textContent = data.latitude.toFixed(4) + '°';
-        document.getElementById('issLon').textContent = data.longitude.toFixed(4) + '°';
+        document.getElementById('issLat').textContent = data.latitude.toFixed(4) + '\u00B0';
+        document.getElementById('issLon').textContent = data.longitude.toFixed(4) + '\u00B0';
         document.getElementById('issAlt').textContent = data.altitude.toFixed(1);
         document.getElementById('issVel').textContent = Math.round(data.velocity);
 
-        // Store trail
         issTrail.push({ lat: data.latitude, lon: data.longitude });
         if (issTrail.length > 100) issTrail.shift();
 
@@ -818,18 +1105,15 @@ function drawISSMap(lat, lon) {
     canvas.width = rect.width;
     canvas.height = rect.height;
 
-    // Dark background
     ctx.fillStyle = '#0a0a2e';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw world map
     if (worldMapImg.complete) {
         ctx.globalAlpha = 0.3;
         ctx.drawImage(worldMapImg, 0, 0, canvas.width, canvas.height);
         ctx.globalAlpha = 1;
     }
 
-    // Draw grid
     ctx.strokeStyle = 'rgba(0, 212, 255, 0.08)';
     ctx.lineWidth = 0.5;
     for (let i = 0; i < 12; i++) {
@@ -841,7 +1125,6 @@ function drawISSMap(lat, lon) {
         ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
     }
 
-    // Trail
     if (issTrail.length > 1) {
         ctx.beginPath();
         ctx.strokeStyle = 'rgba(0, 212, 255, 0.5)';
@@ -849,24 +1132,20 @@ function drawISSMap(lat, lon) {
         for (let i = 0; i < issTrail.length; i++) {
             const px = ((issTrail[i].lon + 180) / 360) * canvas.width;
             const py = ((90 - issTrail[i].lat) / 180) * canvas.height;
-            if (i === 0) ctx.moveTo(px, py);
-            else ctx.lineTo(px, py);
+            if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
         }
         ctx.stroke();
     }
 
-    // ISS position
     const x = ((lon + 180) / 360) * canvas.width;
     const y = ((90 - lat) / 180) * canvas.height;
 
-    // Glow
     const grad = ctx.createRadialGradient(x, y, 0, x, y, 25);
     grad.addColorStop(0, 'rgba(0, 212, 255, 0.6)');
     grad.addColorStop(1, 'rgba(0, 212, 255, 0)');
     ctx.fillStyle = grad;
     ctx.fillRect(x - 25, y - 25, 50, 50);
 
-    // Dot
     ctx.beginPath();
     ctx.arc(x, y, 5, 0, Math.PI * 2);
     ctx.fillStyle = '#00d4ff';
@@ -875,7 +1154,6 @@ function drawISSMap(lat, lon) {
     ctx.lineWidth = 1.5;
     ctx.stroke();
 
-    // Label
     ctx.font = '11px Orbitron, sans-serif';
     ctx.fillStyle = '#00d4ff';
     ctx.fillText('ISS', x + 10, y - 8);
@@ -890,79 +1168,305 @@ async function loadPeopleInSpace() {
         document.getElementById('issPeopleNames').textContent = names;
     } catch (e) {
         document.getElementById('issPeople').textContent = '~10';
-        document.getElementById('issPeopleNames').textContent = 'Nu s-au putut încărca numele';
+        document.getElementById('issPeopleNames').textContent = 'Nu s-au putut incarca numele';
     }
 }
 
-// ================================================
-// SATELLITES DATA (using public TLE data)
-// ================================================
-const NOTABLE_SATELLITES = [
-    { name: 'ISS (ZARYA)', noradId: 25544, type: 'Stație Spațială', country: 'Internațional' },
-    { name: 'HUBBLE', noradId: 20580, type: 'Telescop', country: 'NASA/ESA' },
-    { name: 'TIANGONG', noradId: 54216, type: 'Stație Spațială', country: 'China' },
-    { name: 'TERRA', noradId: 25994, type: 'Observare Pământ', country: 'NASA' },
-    { name: 'AQUA', noradId: 27424, type: 'Observare Pământ', country: 'NASA' },
-    { name: 'LANDSAT 9', noradId: 49260, type: 'Observare Pământ', country: 'NASA/USGS' },
-    { name: 'GOES-16', noradId: 41866, type: 'Meteorologic', country: 'NOAA' },
-    { name: 'JASON-3', noradId: 41240, type: 'Oceanografie', country: 'NASA/CNES' },
-];
+// ================================================================
+// SATELLITES — live tracking, search, world map
+// ================================================================
+let satLiveData = {};
+let satDisplayList = [];
+let satFilterText = '';
+
+async function fetchSatData(noradId) {
+    try {
+        const res = await fetch(`https://api.wheretheiss.at/v1/satellites/${noradId}`);
+        if (!res.ok) return null;
+        return await res.json();
+    } catch {
+        return null;
+    }
+}
+
+async function loadTop5Satellites() {
+    const promises = TOP5_IDS.map(async id => {
+        const data = await fetchSatData(id);
+        if (data) satLiveData[id] = data;
+    });
+    await Promise.all(promises);
+}
 
 async function loadSatellites() {
+    await loadTop5Satellites();
+    renderSatellites();
+    drawSatMap();
+}
+
+function renderSatellites() {
     const container = document.getElementById('sat-container');
+    const filter = satFilterText.toLowerCase();
 
-    try {
-        // Use Where The ISS At API for basic satellite data
-        const satPromises = NOTABLE_SATELLITES.map(async (sat) => {
-            try {
-                const res = await fetch(`https://api.wheretheiss.at/v1/satellites/${sat.noradId}`);
-                if (!res.ok) return { ...sat, online: false };
-                const data = await res.json();
-                return { ...sat, ...data, online: true };
-            } catch {
-                return { ...sat, online: false };
+    let filtered = SATELLITE_DB.filter(s =>
+        s.name.toLowerCase().includes(filter) ||
+        s.type.toLowerCase().includes(filter) ||
+        s.operator.toLowerCase().includes(filter) ||
+        String(s.noradId).includes(filter)
+    );
+
+    // Top 5 always first when no filter
+    if (!filter) {
+        const top5 = filtered.filter(s => TOP5_IDS.includes(s.noradId));
+        const rest = filtered.filter(s => !TOP5_IDS.includes(s.noradId));
+        filtered = [...top5, ...rest];
+    }
+
+    // If filtered but not showing top5, fetch on demand
+    const needFetch = filtered.filter(s => !satLiveData[s.noradId]).slice(0, 5);
+    if (needFetch.length > 0 && filter) {
+        Promise.all(needFetch.map(async s => {
+            const data = await fetchSatData(s.noradId);
+            if (data) {
+                satLiveData[s.noradId] = data;
+                renderSatellites();
+                drawSatMap();
             }
-        });
+        }));
+    }
 
-        const results = await Promise.all(satPromises);
-        let html = '';
+    document.getElementById('satCount').textContent = filtered.length + ' sateliti';
 
-        for (const sat of results) {
-            if (sat.online) {
-                html += `
-                    <div class="sat-card">
-                        <h4>${sat.name}</h4>
-                        <div class="sat-detail"><span>Tip</span><span>${sat.type}</span></div>
-                        <div class="sat-detail"><span>Operator</span><span>${sat.country}</span></div>
-                        <div class="sat-detail"><span>Latitudine</span><span>${sat.latitude.toFixed(2)}°</span></div>
-                        <div class="sat-detail"><span>Longitudine</span><span>${sat.longitude.toFixed(2)}°</span></div>
-                        <div class="sat-detail"><span>Altitudine</span><span>${sat.altitude.toFixed(0)} km</span></div>
-                        <div class="sat-detail"><span>Viteză</span><span>${Math.round(sat.velocity)} km/h</span></div>
-                        <div class="sat-detail"><span>Vizibilitate</span><span>${sat.visibility}</span></div>
-                    </div>
-                `;
-            } else {
-                html += `
-                    <div class="sat-card">
-                        <h4>${sat.name}</h4>
-                        <div class="sat-detail"><span>Tip</span><span>${sat.type}</span></div>
-                        <div class="sat-detail"><span>Operator</span><span>${sat.country}</span></div>
-                        <div class="sat-detail"><span>Status</span><span style="color: var(--accent);">NORAD #${sat.noradId}</span></div>
-                        <div class="sat-detail"><span>Orbită</span><span>Activă</span></div>
-                    </div>
-                `;
-            }
+    let html = '';
+    const displayLimit = filter ? Math.min(filtered.length, 20) : Math.min(filtered.length, 10);
+
+    for (let i = 0; i < displayLimit; i++) {
+        const sat = filtered[i];
+        const live = satLiveData[sat.noradId];
+        const isTop = TOP5_IDS.includes(sat.noradId);
+
+        if (live) {
+            html += `
+                <div class="sat-card ${isTop ? 'top-sat' : ''}">
+                    <h4>${sat.name} <span class="sat-badge live">LIVE</span></h4>
+                    <div class="sat-detail"><span>Tip</span><span>${sat.type}</span></div>
+                    <div class="sat-detail"><span>Operator</span><span>${sat.operator}</span></div>
+                    <div class="sat-detail"><span>NORAD ID</span><span>${sat.noradId}</span></div>
+                    <div class="sat-detail"><span>Latitudine</span><span>${live.latitude.toFixed(2)}\u00B0</span></div>
+                    <div class="sat-detail"><span>Longitudine</span><span>${live.longitude.toFixed(2)}\u00B0</span></div>
+                    <div class="sat-detail"><span>Altitudine</span><span>${live.altitude.toFixed(0)} km</span></div>
+                    <div class="sat-detail"><span>Viteza</span><span>${Math.round(live.velocity)} km/h</span></div>
+                    <div class="sat-detail"><span>Vizibilitate</span><span>${live.visibility || 'N/A'}</span></div>
+                </div>
+            `;
+        } else {
+            html += `
+                <div class="sat-card">
+                    <h4>${sat.name} <span class="sat-badge db">DB</span></h4>
+                    <div class="sat-detail"><span>Tip</span><span>${sat.type}</span></div>
+                    <div class="sat-detail"><span>Operator</span><span>${sat.operator}</span></div>
+                    <div class="sat-detail"><span>NORAD ID</span><span>${sat.noradId}</span></div>
+                    <div class="sat-detail"><span>Status</span><span>In orbita</span></div>
+                </div>
+            `;
+        }
+    }
+
+    if (filtered.length > displayLimit) {
+        html += `<div class="loader" style="grid-column: 1/-1; padding: 1rem;">... si inca ${filtered.length - displayLimit} sateliti. Foloseste cautarea pentru a filtra.</div>`;
+    }
+
+    if (filtered.length === 0) {
+        html = '<div class="loader" style="grid-column: 1/-1;">Niciun satelit gasit pentru cautarea ta.</div>';
+    }
+
+    container.innerHTML = html;
+}
+
+function drawSatMap() {
+    const canvas = document.getElementById('satMapCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+
+    ctx.fillStyle = '#0a0a2e';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    if (worldMapImg.complete) {
+        ctx.globalAlpha = 0.25;
+        ctx.drawImage(worldMapImg, 0, 0, canvas.width, canvas.height);
+        ctx.globalAlpha = 1;
+    }
+
+    // Grid
+    ctx.strokeStyle = 'rgba(123, 47, 247, 0.07)';
+    ctx.lineWidth = 0.5;
+    for (let i = 0; i <= 12; i++) {
+        const x = (i / 12) * canvas.width;
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+    }
+    for (let i = 0; i <= 6; i++) {
+        const y = (i / 6) * canvas.height;
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+    }
+
+    // Draw each tracked satellite
+    const colorMap = {
+        25544: '#00d4ff',
+        20580: '#f9ca24',
+        54216: '#ff6b6b',
+        50463: '#00ff88',
+        44713: '#b388ff',
+    };
+
+    const entries = Object.entries(satLiveData);
+    for (const [idStr, data] of entries) {
+        const id = parseInt(idStr);
+        const x = ((data.longitude + 180) / 360) * canvas.width;
+        const y = ((90 - data.latitude) / 180) * canvas.height;
+        const color = colorMap[id] || '#7b2ff7';
+        const isTop = TOP5_IDS.includes(id);
+        const radius = isTop ? 5 : 3;
+
+        // Glow for top 5
+        if (isTop) {
+            const grad = ctx.createRadialGradient(x, y, 0, x, y, 18);
+            grad.addColorStop(0, color.replace(')', ',0.4)').replace('rgb', 'rgba'));
+            grad.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(x - 18, y - 18, 36, 36);
         }
 
-        container.innerHTML = html;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+
+        if (isTop) {
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            const sat = SATELLITE_DB.find(s => s.noradId === id);
+            if (sat) {
+                ctx.font = '9px Orbitron, sans-serif';
+                ctx.fillStyle = color;
+                ctx.fillText(sat.name.split(' ')[0], x + 8, y - 5);
+            }
+        }
+    }
+
+    // Legend
+    ctx.font = '10px Exo 2, sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.fillText(`${entries.length} sateliti urmariti`, 10, canvas.height - 10);
+}
+
+// Satellite search handler
+document.getElementById('satSearch').addEventListener('input', function() {
+    satFilterText = this.value;
+    renderSatellites();
+});
+
+// ================================================================
+// ROCKET LAUNCHES (Launch Library 2)
+// ================================================================
+let launchData = [];
+
+async function loadLaunches() {
+    const container = document.getElementById('launch-container');
+    try {
+        const res = await fetch('https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=10&mode=list');
+        const data = await res.json();
+        launchData = data.results || [];
+
+        if (launchData.length === 0) {
+            container.innerHTML = '<div class="loader">Nicio lansare viitoare gasita.</div>';
+            return;
+        }
+
+        renderLaunches();
     } catch (e) {
-        container.innerHTML = '<div class="loader">Nu s-au putut încărca datele sateliților.</div>';
+        console.error('Launches error:', e);
+        container.innerHTML = '<div class="loader">Nu s-au putut incarca lansarile. API-ul poate fi temporar indisponibil.</div>';
     }
 }
 
-// ================================================
+function renderLaunches() {
+    const container = document.getElementById('launch-container');
+    let html = '';
+
+    for (const launch of launchData) {
+        const name = launch.name || 'Lansare necunoscuta';
+        const rocket = launch.rocket?.configuration?.name || extractRocket(name);
+        const provider = launch.launch_service_provider?.name || 'Necunoscut';
+        const pad = launch.pad?.name || 'Necunoscut';
+        const padLoc = launch.pad?.location?.name || '';
+        const netDate = launch.net ? new Date(launch.net) : null;
+        const statusName = launch.status?.name || 'TBD';
+        const statusAbbrev = launch.status?.abbrev || 'TBD';
+
+        let statusClass = 'tbd';
+        if (statusAbbrev === 'Go') statusClass = 'go';
+        else if (statusAbbrev === 'TBC') statusClass = 'tbc';
+
+        const dateStr = netDate ? netDate.toLocaleString('ro-RO', {
+            day: 'numeric', month: 'long', year: 'numeric',
+            hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+        }) : 'TBD';
+
+        const countdownId = 'cd-' + (launch.id || Math.random().toString(36).substr(2, 6));
+
+        html += `
+            <div class="launch-card">
+                <h4>${name.length > 60 ? name.substring(0, 57) + '...' : name}</h4>
+                <span class="launch-status ${statusClass}">${statusName}</span>
+                <div class="launch-detail"><span>Racheta</span><span>${rocket}</span></div>
+                <div class="launch-detail"><span>Furnizor</span><span>${provider}</span></div>
+                <div class="launch-detail"><span>Rampa</span><span>${pad}</span></div>
+                ${padLoc ? `<div class="launch-detail"><span>Locatie</span><span>${padLoc}</span></div>` : ''}
+                <div class="launch-detail"><span>Data</span><span>${dateStr}</span></div>
+                <div class="launch-countdown" id="${countdownId}" data-net="${launch.net || ''}">--</div>
+            </div>
+        `;
+    }
+
+    container.innerHTML = html;
+    updateCountdowns();
+}
+
+function extractRocket(name) {
+    const parts = name.split('|');
+    return parts[0].trim();
+}
+
+function updateCountdowns() {
+    const els = document.querySelectorAll('.launch-countdown[data-net]');
+    els.forEach(el => {
+        const net = el.getAttribute('data-net');
+        if (!net) { el.textContent = 'Data nedeterminata'; return; }
+        const diff = new Date(net) - Date.now();
+        if (diff <= 0) {
+            el.textContent = 'Lansat / In desfasurare';
+            return;
+        }
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        let parts = [];
+        if (d > 0) parts.push(d + 'z');
+        parts.push(String(h).padStart(2, '0') + 'h');
+        parts.push(String(m).padStart(2, '0') + 'm');
+        parts.push(String(s).padStart(2, '0') + 's');
+        el.textContent = 'T- ' + parts.join(' ');
+    });
+}
+
+// ================================================================
 // NEO - Near Earth Objects
-// ================================================
+// ================================================================
 async function loadNEO() {
     try {
         const today = new Date().toISOString().split('T')[0];
@@ -972,11 +1476,10 @@ async function loadNEO() {
 
         const neos = data.near_earth_objects[today] || [];
         if (neos.length === 0) {
-            container.innerHTML = '<div class="loader">Niciun asteroid detectat astăzi.</div>';
+            container.innerHTML = '<div class="loader">Niciun asteroid detectat astazi.</div>';
             return;
         }
 
-        // Sort by closest approach
         neos.sort((a, b) => {
             const distA = parseFloat(a.close_approach_data[0]?.miss_distance?.kilometers || 0);
             const distB = parseFloat(b.close_approach_data[0]?.miss_distance?.kilometers || 0);
@@ -996,33 +1499,57 @@ async function loadNEO() {
             html += `
                 <div class="neo-card">
                     <h4>${neo.name.replace(/[()]/g, '')}</h4>
-                    <span class="hazard ${isHazardous ? 'danger' : 'safe'}">${isHazardous ? '⚠ Potențial periculos' : '✓ Sigur'}</span>
+                    <span class="hazard ${isHazardous ? 'danger' : 'safe'}">${isHazardous ? 'Potential periculos' : 'Sigur'}</span>
                     <div class="neo-detail"><span>Diametru estimat</span><span>${diamMin} – ${diamMax} m</span></div>
-                    <div class="neo-detail"><span>Distanță minimă</span><span>${(missKm / 1e6).toFixed(2)} mil. km</span></div>
-                    <div class="neo-detail"><span>Distanță lunară</span><span>${missLunar.toFixed(1)} LD</span></div>
-                    <div class="neo-detail"><span>Viteză relativă</span><span>${Math.round(velocity).toLocaleString()} km/h</span></div>
+                    <div class="neo-detail"><span>Distanta minima</span><span>${(missKm / 1e6).toFixed(2)} mil. km</span></div>
+                    <div class="neo-detail"><span>Distanta lunara</span><span>${missLunar.toFixed(1)} LD</span></div>
+                    <div class="neo-detail"><span>Viteza relativa</span><span>${Math.round(velocity).toLocaleString()} km/h</span></div>
                 </div>
             `;
         }
         container.innerHTML = html;
     } catch (e) {
-        document.getElementById('neo-container').innerHTML = '<div class="loader">Nu s-au putut încărca datele NEO.</div>';
+        document.getElementById('neo-container').innerHTML = '<div class="loader">Nu s-au putut incarca datele NEO.</div>';
     }
 }
 
-// ================================================
-// MARS ROVER PHOTOS
-// ================================================
+// ================================================================
+// MARS ROVER PHOTOS (with fallback chain)
+// ================================================================
 async function loadMarsPhotos() {
-    try {
-        // Try latest photos from Curiosity
-        let res = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/latest_photos?api_key=${NASA_API_KEY}`);
-        let data = await res.json();
-        const container = document.getElementById('mars-container');
+    const container = document.getElementById('mars-container');
 
-        const photos = data.latest_photos || [];
-        if (photos.length === 0) {
-            container.innerHTML = '<div class="loader">Nu sunt disponibile fotografii recente.</div>';
+    try {
+        // Attempt 1: Curiosity latest_photos
+        let photos = await tryMarsEndpoint(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/latest_photos?api_key=${NASA_API_KEY}`, 'latest_photos');
+
+        // Attempt 2: Curiosity sol=3900
+        if (!photos || photos.length === 0) {
+            photos = await tryMarsEndpoint(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=3900&page=1&api_key=${NASA_API_KEY}`, 'photos');
+        }
+
+        // Attempt 3: Curiosity sol=1000
+        if (!photos || photos.length === 0) {
+            photos = await tryMarsEndpoint(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=1&api_key=${NASA_API_KEY}`, 'photos');
+        }
+
+        // Attempt 4: Perseverance latest_photos
+        if (!photos || photos.length === 0) {
+            photos = await tryMarsEndpoint(`https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/latest_photos?api_key=${NASA_API_KEY}`, 'latest_photos');
+        }
+
+        // Attempt 5: Perseverance sol=500
+        if (!photos || photos.length === 0) {
+            photos = await tryMarsEndpoint(`https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?sol=500&page=1&api_key=${NASA_API_KEY}`, 'photos');
+        }
+
+        if (!photos || photos.length === 0) {
+            container.innerHTML = `
+                <div class="loader" style="grid-column: 1/-1;">
+                    <p>Nu sunt disponibile fotografii recente de pe Marte in acest moment.</p>
+                    <p style="margin-top: 1rem;"><a href="https://mars.nasa.gov/multimedia/images/" target="_blank" style="color: var(--orange); text-decoration: underline;">Viziteaza Galeria NASA Mars</a></p>
+                </div>
+            `;
             return;
         }
 
@@ -1030,7 +1557,7 @@ async function loadMarsPhotos() {
         for (const photo of photos.slice(0, 8)) {
             html += `
                 <div class="mars-card">
-                    <img src="${photo.img_src}" alt="Mars - ${photo.camera.full_name}" loading="lazy">
+                    <img src="${photo.img_src}" alt="Mars - ${photo.camera.full_name}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22><rect fill=%22%231a1a2e%22 width=%22400%22 height=%22200%22/><text x=%2250%%22 y=%2250%%22 fill=%22%23666%22 text-anchor=%22middle%22 font-size=%2214%22>Imagine indisponibila</text></svg>'">
                     <div class="mars-info">
                         <h4>${photo.camera.full_name}</h4>
                         <p>Sol ${photo.sol} &bull; ${photo.earth_date}</p>
@@ -1041,29 +1568,99 @@ async function loadMarsPhotos() {
         }
         container.innerHTML = html;
     } catch (e) {
-        document.getElementById('mars-container').innerHTML = '<div class="loader">Nu s-au putut încărca fotografiile de pe Marte.</div>';
+        console.error('Mars photos error:', e);
+        container.innerHTML = `
+            <div class="loader" style="grid-column: 1/-1;">
+                <p>Nu s-au putut incarca fotografiile de pe Marte.</p>
+                <p style="margin-top: 1rem;"><a href="https://mars.nasa.gov/multimedia/images/" target="_blank" style="color: var(--orange); text-decoration: underline;">Viziteaza Galeria NASA Mars</a></p>
+            </div>
+        `;
     }
 }
 
-// ================================================
-// INIT
-// ================================================
+async function tryMarsEndpoint(url, key) {
+    try {
+        const res = await fetch(url);
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data[key] || data.photos || null;
+    } catch {
+        return null;
+    }
+}
+
+// ================================================================
+// SPACE NEWS (Spaceflight News API)
+// ================================================================
+async function loadNews() {
+    const container = document.getElementById('news-container');
+    try {
+        const res = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=6');
+        const data = await res.json();
+        const articles = data.results || [];
+
+        if (articles.length === 0) {
+            container.innerHTML = '<div class="loader">Nicio stire disponibila in acest moment.</div>';
+            return;
+        }
+
+        let html = '';
+        for (const article of articles) {
+            const pubDate = article.published_at ? new Date(article.published_at).toLocaleDateString('ro-RO', {
+                day: 'numeric', month: 'long', year: 'numeric'
+            }) : '';
+            const source = article.news_site || 'Necunoscut';
+            const summary = article.summary ? (article.summary.length > 200 ? article.summary.substring(0, 197) + '...' : article.summary) : '';
+
+            html += `
+                <div class="news-card">
+                    <h4>${article.title}</h4>
+                    <div class="news-meta">${source} &bull; ${pubDate}</div>
+                    <div class="news-summary">${summary}</div>
+                    <a class="news-link" href="${article.url}" target="_blank" rel="noopener noreferrer">Citeste articolul &rarr;</a>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    } catch (e) {
+        console.error('News error:', e);
+        container.innerHTML = '<div class="loader">Nu s-au putut incarca stirile spatiale.</div>';
+    }
+}
+
+// ================================================================
+// INIT & INTERVALS
+// ================================================================
 function loadAllData() {
     loadAPOD();
     updateISS();
     loadPeopleInSpace();
     loadSatellites();
+    loadLaunches();
     loadNEO();
     loadMarsPhotos();
+    loadNews();
 }
 
 loadAllData();
 
-// Update ISS every 5 seconds
+// ISS: every 5 seconds
 setInterval(updateISS, 5000);
 
-// Update satellites every 30 seconds
-setInterval(loadSatellites, 30000);
+// Satellites: every 30 seconds
+setInterval(async () => {
+    await loadTop5Satellites();
+    renderSatellites();
+    drawSatMap();
+}, 30000);
+
+// Countdowns: every 1 second
+setInterval(updateCountdowns, 1000);
+
+// Redraw sat map on resize
+window.addEventListener('resize', () => {
+    drawSatMap();
+});
 
 // Intersection observer for nav active state
 const observer = new IntersectionObserver((entries) => {
