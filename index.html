@@ -37,7 +37,6 @@
             min-height: 100vh;
         }
 
-        /* ===== STARFIELD CANVAS ===== */
         #starfield {
             position: fixed;
             top: 0; left: 0;
@@ -45,7 +44,6 @@
             z-index: 0;
         }
 
-        /* ===== NAVBAR ===== */
         nav {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -85,11 +83,8 @@
             font-weight: 400;
         }
 
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--primary);
-        }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
 
-        /* ===== HERO ===== */
         .hero {
             position: relative;
             z-index: 1;
@@ -128,22 +123,11 @@
             font-size: 1.5rem;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(10px); }
-        }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        /* ===== SECTIONS ===== */
         .section {
             position: relative;
             z-index: 1;
@@ -159,10 +143,7 @@
             color: #fff;
         }
 
-        .section-title span {
-            color: var(--primary);
-        }
-
+        .section-title span { color: var(--primary); }
         .section-title .orange { color: var(--orange); }
         .section-title .teal { color: var(--teal); }
 
@@ -172,7 +153,6 @@
             font-size: 0.95rem;
         }
 
-        /* ===== APOD CARD ===== */
         .apod-card {
             background: var(--card-bg);
             border: 1px solid rgba(0, 212, 255, 0.15);
@@ -183,52 +163,72 @@
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .apod-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 0 40px rgba(0, 212, 255, 0.4);
+        .apod-card:hover { transform: translateY(-4px); box-shadow: 0 0 40px rgba(0, 212, 255, 0.4); }
+        .apod-card img, .apod-card iframe { width: 100%; max-height: 500px; object-fit: cover; display: block; }
+        .apod-card iframe { height: 500px; border: none; }
+        .apod-info { padding: 1.5rem; }
+        .apod-info h3 { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--primary); margin-bottom: 0.5rem; }
+        .apod-info .date { font-size: 0.8rem; color: var(--accent); margin-bottom: 0.8rem; }
+        .apod-info p { font-size: 0.9rem; line-height: 1.6; color: #b0b8c0; }
+
+        /* TRACKER + SEARCH */
+        .tracker-search-bar {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            align-items: stretch;
         }
 
-        .apod-card img, .apod-card iframe {
-            width: 100%;
-            max-height: 500px;
-            object-fit: cover;
-            display: block;
+        .tracker-search-bar input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.8rem 1.2rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            font-family: 'Exo 2', sans-serif;
+            transition: border-color 0.3s;
         }
 
-        .apod-card iframe {
-            height: 500px;
+        .tracker-search-bar input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 212, 255, 0.2); }
+
+        .tracker-search-bar button, .sat-search-bar button {
+            padding: 0.8rem 1.5rem;
             border: none;
-        }
-
-        .apod-info {
-            padding: 1.5rem;
-        }
-
-        .apod-info h3 {
+            border-radius: 10px;
+            color: #fff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .apod-info .date {
             font-size: 0.8rem;
-            color: var(--accent);
-            margin-bottom: 0.8rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            white-space: nowrap;
         }
 
-        .apod-info p {
+        .tracker-search-bar button { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
+        .sat-search-bar button { background: linear-gradient(135deg, var(--secondary), #9b59b6); }
+        .tracker-search-bar button:hover, .sat-search-bar button:hover { transform: scale(1.03); }
+
+        .tracker-current {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: #889;
+            flex-wrap: wrap;
+        }
+
+        .tracker-current .tracked-name {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
             font-size: 0.9rem;
-            line-height: 1.6;
-            color: #b0b8c0;
         }
 
-        /* ===== ISS TRACKER ===== */
-        .iss-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
+        .iss-container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 
         .iss-map {
             background: var(--card-bg);
@@ -239,16 +239,8 @@
             position: relative;
         }
 
-        .iss-map canvas {
-            width: 100%;
-            height: 100%;
-        }
-
-        .iss-stats {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
+        .iss-map canvas { width: 100%; height: 100%; }
+        .iss-stats { display: flex; flex-direction: column; gap: 1rem; }
 
         .stat-card {
             background: var(--card-bg);
@@ -259,46 +251,15 @@
             transition: transform 0.3s;
         }
 
-        .stat-card:hover {
-            transform: translateY(-2px);
-        }
+        .stat-card:hover { transform: translateY(-2px); }
+        .stat-card .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #667; margin-bottom: 0.3rem; }
+        .stat-card .value { font-family: 'Orbitron', sans-serif; font-size: 1.4rem; color: var(--primary); }
+        .stat-card .sub { font-size: 0.8rem; color: #889; margin-top: 0.2rem; }
 
-        .stat-card .label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #667;
-            margin-bottom: 0.3rem;
-        }
+        .live-dot { display: inline-block; width: 8px; height: 8px; background: #00ff88; border-radius: 50%; margin-right: 6px; animation: pulse 1.5s infinite; }
 
-        .stat-card .value {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
-            color: var(--primary);
-        }
-
-        .stat-card .sub {
-            font-size: 0.8rem;
-            color: #889;
-            margin-top: 0.2rem;
-        }
-
-        .live-dot {
-            display: inline-block;
-            width: 8px; height: 8px;
-            background: #00ff88;
-            border-radius: 50%;
-            margin-right: 6px;
-            animation: pulse 1.5s infinite;
-        }
-
-        /* ===== SATELLITES ===== */
-        .sat-search-bar {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
+        /* SATELLITES */
+        .sat-search-bar { display: flex; gap: 0.8rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: stretch; }
 
         .sat-search-bar input {
             flex: 1;
@@ -314,565 +275,203 @@
             transition: border-color 0.3s;
         }
 
-        .sat-search-bar input:focus {
-            border-color: var(--secondary);
-            box-shadow: 0 0 15px rgba(123, 47, 247, 0.2);
-        }
+        .sat-search-bar input:focus { border-color: var(--secondary); box-shadow: 0 0 15px rgba(123, 47, 247, 0.2); }
+        .sat-search-bar .sat-count { display: flex; align-items: center; font-size: 0.85rem; color: #889; font-family: 'Orbitron', sans-serif; }
 
-        .sat-search-bar .sat-count {
-            display: flex;
-            align-items: center;
-            font-size: 0.85rem;
-            color: #889;
-            font-family: 'Orbitron', sans-serif;
-        }
+        .sat-map-wrap { background: var(--card-bg); border: 1px solid rgba(123, 47, 247, 0.2); border-radius: 16px; overflow: hidden; margin-bottom: 1.5rem; aspect-ratio: 2/1; position: relative; }
+        .sat-map-wrap canvas { width: 100%; height: 100%; }
 
-        .sat-map-wrap {
-            background: var(--card-bg);
-            border: 1px solid rgba(123, 47, 247, 0.2);
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-            aspect-ratio: 2/1;
-            position: relative;
-        }
+        .sat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
 
-        .sat-map-wrap canvas {
-            width: 100%;
-            height: 100%;
-        }
-
-        .sat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
-        }
-
-        .sat-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(123, 47, 247, 0.2);
-            border-radius: 12px;
-            padding: 1.2rem;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-
-        .sat-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--secondary);
-        }
-
-        .sat-card.top-sat {
-            border-color: rgba(123, 47, 247, 0.45);
-            box-shadow: 0 0 15px rgba(123, 47, 247, 0.15);
-        }
-
-        .sat-card h4 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            color: var(--secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .sat-card .sat-detail {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            padding: 0.3rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
+        .sat-card { background: var(--card-bg); border: 1px solid rgba(123, 47, 247, 0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.3s, border-color 0.3s; }
+        .sat-card:hover { transform: translateY(-3px); border-color: var(--secondary); }
+        .sat-card.top-sat { border-color: rgba(123, 47, 247, 0.45); box-shadow: 0 0 15px rgba(123, 47, 247, 0.15); }
+        .sat-card h4 { font-family: 'Orbitron', sans-serif; font-size: 0.85rem; color: var(--secondary); margin-bottom: 0.5rem; }
+        .sat-card .sat-detail { display: flex; justify-content: space-between; font-size: 0.8rem; padding: 0.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .sat-card .sat-detail:last-child { border: none; }
         .sat-card .sat-detail span:first-child { color: #889; }
         .sat-card .sat-detail span:last-child { color: #ccc; font-family: 'Orbitron', sans-serif; font-size: 0.75rem; }
 
-        .sat-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.65rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-left: 0.5rem;
-        }
-
+        .sat-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; margin-left: 0.5rem; }
         .sat-badge.live { background: rgba(0,255,100,0.15); color: #00ff88; }
         .sat-badge.db { background: rgba(123,47,247,0.15); color: #b388ff; }
+        .sat-badge.search { background: rgba(0,212,255,0.15); color: var(--primary); }
 
-        /* ===== LAUNCHES (orange theme) ===== */
-        .launch-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 1rem;
+        .sat-track-btn {
+            margin-top: 0.6rem;
+            padding: 0.4rem 0.8rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 6px;
+            color: var(--primary);
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-family: 'Exo 2', sans-serif;
+            transition: background 0.2s;
+            width: 100%;
+            text-align: center;
         }
+        .sat-track-btn:hover { background: rgba(0, 212, 255, 0.2); }
 
-        .launch-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 159, 67, 0.2);
-            border-radius: 12px;
-            padding: 1.3rem;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-
-        .launch-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--orange);
-        }
-
-        .launch-card h4 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            color: var(--orange);
-            margin-bottom: 0.6rem;
-        }
-
-        .launch-detail {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.82rem;
-            padding: 0.35rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
+        /* LAUNCHES */
+        .launch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1rem; }
+        .launch-card { background: var(--card-bg); border: 1px solid rgba(255, 159, 67, 0.2); border-radius: 12px; padding: 1.3rem; transition: transform 0.3s, border-color 0.3s; }
+        .launch-card:hover { transform: translateY(-3px); border-color: var(--orange); }
+        .launch-card h4 { font-family: 'Orbitron', sans-serif; font-size: 0.9rem; color: var(--orange); margin-bottom: 0.6rem; }
+        .launch-detail { display: flex; justify-content: space-between; font-size: 0.82rem; padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .launch-detail:last-child { border: none; }
         .launch-detail span:first-child { color: #889; }
         .launch-detail span:last-child { color: #ddd; }
-
-        .launch-countdown {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-            color: var(--orange);
-            margin-top: 0.6rem;
-            padding: 0.5rem;
-            background: rgba(255, 159, 67, 0.08);
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .launch-status {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
+        .launch-countdown { font-family: 'Orbitron', sans-serif; font-size: 1rem; color: var(--orange); margin-top: 0.6rem; padding: 0.5rem; background: rgba(255, 159, 67, 0.08); border-radius: 8px; text-align: center; }
+        .launch-status { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
         .launch-status.go { background: rgba(0,255,100,0.15); color: #00ff88; }
         .launch-status.tbd { background: rgba(255,159,67,0.15); color: var(--orange); }
         .launch-status.tbc { background: rgba(0,212,255,0.15); color: var(--primary); }
 
-        /* ===== NEO ===== */
-        .neo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1rem;
-        }
-
-        .neo-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 107, 107, 0.2);
-            border-radius: 12px;
-            padding: 1.2rem;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-
-        .neo-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent);
-        }
-
-        .neo-card h4 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            color: var(--accent);
-            margin-bottom: 0.6rem;
-        }
-
-        .neo-card .hazard {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
+        /* NEO */
+        .neo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+        .neo-card { background: var(--card-bg); border: 1px solid rgba(255, 107, 107, 0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.3s, border-color 0.3s; }
+        .neo-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+        .neo-card h4 { font-family: 'Orbitron', sans-serif; font-size: 0.9rem; color: var(--accent); margin-bottom: 0.6rem; }
+        .neo-card .hazard { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
         .neo-card .hazard.danger { background: rgba(255,50,50,0.2); color: #ff5555; }
         .neo-card .hazard.safe { background: rgba(0,255,100,0.2); color: #00ff88; }
-
-        .neo-detail {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            padding: 0.4rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
+        .neo-detail { display: flex; justify-content: space-between; font-size: 0.8rem; padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .neo-detail:last-child { border: none; }
         .neo-detail span:first-child { color: #889; }
         .neo-detail span:last-child { color: #ccc; }
 
-        /* ===== MARS ROVER ===== */
-        .mars-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
-        }
+        /* NEWS */
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1rem; }
+        .news-card { background: var(--card-bg); border: 1px solid rgba(0, 206, 201, 0.2); border-radius: 12px; padding: 1.3rem; transition: transform 0.3s, border-color 0.3s; display: flex; flex-direction: column; }
+        .news-card:hover { transform: translateY(-3px); border-color: var(--teal); }
+        .news-card h4 { font-family: 'Orbitron', sans-serif; font-size: 0.85rem; color: var(--teal); margin-bottom: 0.5rem; line-height: 1.4; }
+        .news-card .news-meta { font-size: 0.75rem; color: #778; margin-bottom: 0.6rem; }
+        .news-card .news-summary { font-size: 0.85rem; color: #b0b8c0; line-height: 1.5; flex: 1; margin-bottom: 0.8rem; }
+        .news-card .news-link { display: inline-block; color: var(--teal); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: color 0.3s; }
+        .news-card .news-link:hover { color: #fff; }
 
-        .mars-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 150, 50, 0.2);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
+        .loader { text-align: center; padding: 3rem; color: #556; }
+        .loader .spinner { width: 40px; height: 40px; border: 3px solid rgba(0, 212, 255, 0.2); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
 
-        .mars-card:hover {
-            transform: translateY(-3px);
-        }
+        footer { position: relative; z-index: 1; text-align: center; padding: 3rem 2rem; color: #445; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); }
+        footer a { color: var(--primary); text-decoration: none; }
 
-        .mars-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .mars-card .mars-info {
-            padding: 1rem;
-        }
-
-        .mars-card .mars-info h4 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.8rem;
-            color: #ff9944;
-            margin-bottom: 0.3rem;
-        }
-
-        .mars-card .mars-info p {
-            font-size: 0.8rem;
-            color: #889;
-        }
-
-        /* ===== NEWS (teal theme) ===== */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 1rem;
-        }
-
-        .news-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(0, 206, 201, 0.2);
-            border-radius: 12px;
-            padding: 1.3rem;
-            transition: transform 0.3s, border-color 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .news-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--teal);
-        }
-
-        .news-card h4 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            color: var(--teal);
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
-        }
-
-        .news-card .news-meta {
-            font-size: 0.75rem;
-            color: #778;
-            margin-bottom: 0.6rem;
-        }
-
-        .news-card .news-summary {
-            font-size: 0.85rem;
-            color: #b0b8c0;
-            line-height: 1.5;
-            flex: 1;
-            margin-bottom: 0.8rem;
-        }
-
-        .news-card .news-link {
-            display: inline-block;
-            color: var(--teal);
-            text-decoration: none;
-            font-size: 0.82rem;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        .news-card .news-link:hover {
-            color: #fff;
-        }
-
-        /* ===== LOADER ===== */
-        .loader {
-            text-align: center;
-            padding: 3rem;
-            color: #556;
-        }
-
-        .loader .spinner {
-            width: 40px; height: 40px;
-            border: 3px solid rgba(0, 212, 255, 0.2);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* ===== FOOTER ===== */
-        footer {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 3rem 2rem;
-            color: #445;
-            font-size: 0.8rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-
-        footer a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        /* ===== API KEY MODAL ===== */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; }
         .modal-overlay.active { display: flex; }
-
-        .modal {
-            background: #13132a;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 16px;
-            padding: 2rem;
-            max-width: 450px;
-            width: 90%;
-        }
-
-        .modal h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .modal p {
-            font-size: 0.9rem;
-            color: #aab;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .modal input {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-            outline: none;
-            font-family: 'Exo 2', sans-serif;
-        }
-
-        .modal input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
-        }
-
-        .modal .btn-row {
-            display: flex;
-            gap: 0.8rem;
-        }
-
-        .modal button {
-            flex: 1;
-            padding: 0.7rem;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
+        .modal { background: #13132a; border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 16px; padding: 2rem; max-width: 450px; width: 90%; }
+        .modal h2 { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--primary); margin-bottom: 1rem; }
+        .modal p { font-size: 0.9rem; color: #aab; margin-bottom: 1rem; line-height: 1.5; }
+        .modal input { width: 100%; padding: 0.8rem 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 8px; color: #fff; font-size: 0.95rem; margin-bottom: 1rem; outline: none; font-family: 'Exo 2', sans-serif; }
+        .modal input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0, 212, 255, 0.2); }
+        .modal .btn-row { display: flex; gap: 0.8rem; }
+        .modal button { flex: 1; padding: 0.7rem; border: none; border-radius: 8px; font-family: 'Orbitron', sans-serif; font-size: 0.8rem; cursor: pointer; transition: transform 0.2s; }
         .modal button:hover { transform: scale(1.02); }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; }
+        .btn-secondary { background: rgba(255,255,255,0.1); color: #aaa; }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #fff;
-        }
-
-        .btn-secondary {
-            background: rgba(255,255,255,0.1);
-            color: #aaa;
-        }
-
-        /* ===== SCROLLBAR ===== */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--dark); }
         ::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.3); border-radius: 4px; }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .iss-container { grid-template-columns: 1fr; }
             .nav-links { display: none; }
             .sat-map-wrap { aspect-ratio: 16/10; }
             .launch-grid { grid-template-columns: 1fr; }
             .news-grid { grid-template-columns: 1fr; }
+            .tracker-search-bar, .sat-search-bar { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
-<!-- STARFIELD BACKGROUND -->
 <canvas id="starfield"></canvas>
 
-<!-- NAVBAR -->
 <nav>
     <div class="logo">COSMIC EXPLORER</div>
     <ul class="nav-links">
         <li><a href="#apod" class="active">APOD</a></li>
-        <li><a href="#iss">ISS</a></li>
+        <li><a href="#iss">Tracker</a></li>
         <li><a href="#satellites">Sateliti</a></li>
         <li><a href="#launches">Lansari</a></li>
         <li><a href="#neo">Asteroizi</a></li>
-        <li><a href="#mars">Mars</a></li>
         <li><a href="#news">Stiri</a></li>
     </ul>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
     <h1>COSMIC EXPLORER</h1>
-    <p>Date live de la NASA, tracking sateliti in timp real, lansari de rachete, stiri din spatiu si imagini din adancul universului — totul intr-un singur dashboard.</p>
+    <p>Date live de la NASA, tracking orice satelit din orbita, lansari de rachete, stiri din spatiu si imagini din adancul universului — totul intr-un singur dashboard.</p>
     <div class="scroll-hint">&#x25BC;</div>
 </section>
 
-<!-- APOD -->
 <section class="section" id="apod">
     <h2 class="section-title">Imaginea Zilei <span>NASA APOD</span></h2>
     <p class="section-subtitle">Astronomy Picture of the Day — o noua imagine spectaculoasa in fiecare zi</p>
-    <div id="apod-container">
-        <div class="loader"><div class="spinner"></div>Se incarca imaginea zilei...</div>
-    </div>
+    <div id="apod-container"><div class="loader"><div class="spinner"></div>Se incarca imaginea zilei...</div></div>
 </section>
 
-<!-- ISS TRACKER -->
+<!-- SPACE TRACKER — track ANY satellite -->
 <section class="section" id="iss">
-    <h2 class="section-title">ISS Tracker <span>Live</span></h2>
-    <p class="section-subtitle"><span class="live-dot"></span>Statia Spatiala Internationala — pozitie actualizata in timp real</p>
+    <h2 class="section-title">Space Tracker <span>Live</span></h2>
+    <p class="section-subtitle"><span class="live-dot"></span>Urmareste orice satelit, statie spatiala sau obiect din orbita — introdu numele sau NORAD ID</p>
+    <div class="tracker-search-bar">
+        <input type="text" id="trackerSearch" placeholder="Cauta satelit dupa nume sau NORAD ID (ex: ISS, Hubble, 25544, Starlink...)">
+        <button onclick="searchTrackerSatellite()">Cauta</button>
+    </div>
+    <div class="tracker-current">
+        <span class="live-dot"></span> Urmaresc: <span class="tracked-name" id="trackedName">ISS (ZARYA)</span>
+        <span style="color:#556;margin-left:0.5rem;" id="trackedNorad">NORAD 25544</span>
+    </div>
     <div class="iss-container">
-        <div class="iss-map">
-            <canvas id="issCanvas"></canvas>
-        </div>
+        <div class="iss-map"><canvas id="issCanvas"></canvas></div>
         <div class="iss-stats">
-            <div class="stat-card">
-                <div class="label">Latitudine</div>
-                <div class="value" id="issLat">--</div>
-            </div>
-            <div class="stat-card">
-                <div class="label">Longitudine</div>
-                <div class="value" id="issLon">--</div>
-            </div>
-            <div class="stat-card">
-                <div class="label">Altitudine</div>
-                <div class="value" id="issAlt">--</div>
-                <div class="sub">kilometri deasupra Pamantului</div>
-            </div>
-            <div class="stat-card">
-                <div class="label">Viteza</div>
-                <div class="value" id="issVel">--</div>
-                <div class="sub">km/h</div>
-            </div>
-            <div class="stat-card">
-                <div class="label">Persoane in spatiu</div>
-                <div class="value" id="issPeople">--</div>
-                <div class="sub" id="issPeopleNames"></div>
-            </div>
+            <div class="stat-card"><div class="label">Latitudine</div><div class="value" id="issLat">--</div></div>
+            <div class="stat-card"><div class="label">Longitudine</div><div class="value" id="issLon">--</div></div>
+            <div class="stat-card"><div class="label">Altitudine</div><div class="value" id="issAlt">--</div><div class="sub">kilometri deasupra Pamantului</div></div>
+            <div class="stat-card"><div class="label">Viteza</div><div class="value" id="issVel">--</div><div class="sub">km/h</div></div>
+            <div class="stat-card"><div class="label">Persoane in spatiu</div><div class="value" id="issPeople">--</div><div class="sub" id="issPeopleNames"></div></div>
         </div>
     </div>
 </section>
 
-<!-- SATELLITES -->
+<!-- SATELLITES — search 10,000+ from CelesTrak -->
 <section class="section" id="satellites">
     <h2 class="section-title">Sateliti <span>in Orbita</span></h2>
-    <p class="section-subtitle"><span class="live-dot"></span>50+ sateliti notabili — date live si harta in timp real</p>
+    <p class="section-subtitle"><span class="live-dot"></span>Peste 10.000 de sateliti — cauta orice satelit din lume prin baza de date CelesTrak</p>
     <div class="sat-search-bar">
-        <input type="text" id="satSearch" placeholder="Cauta satelit dupa nume (ex: Hubble, JWST, Starlink...)">
+        <input type="text" id="satSearch" placeholder="Cauta orice satelit (ex: Hubble, JWST, Starlink, GPS, Sentinel, Iridium...)">
+        <button onclick="searchSatellitesCelesTrak()">Cauta CelesTrak</button>
         <div class="sat-count" id="satCount">0 sateliti</div>
     </div>
-    <div class="sat-map-wrap">
-        <canvas id="satMapCanvas"></canvas>
-    </div>
-    <div class="sat-grid" id="sat-container">
-        <div class="loader"><div class="spinner"></div>Se incarca datele satelitilor...</div>
-    </div>
+    <div class="sat-map-wrap"><canvas id="satMapCanvas"></canvas></div>
+    <div class="sat-grid" id="sat-container"><div class="loader"><div class="spinner"></div>Se incarca datele satelitilor...</div></div>
 </section>
 
-<!-- ROCKET LAUNCHES -->
 <section class="section" id="launches">
     <h2 class="section-title">Lansari de Rachete <span class="orange">Upcoming</span></h2>
     <p class="section-subtitle">Urmatoarele lansari spatiale programate din intreaga lume</p>
-    <div class="launch-grid" id="launch-container">
-        <div class="loader"><div class="spinner"></div>Se incarca lansarile...</div>
-    </div>
+    <div class="launch-grid" id="launch-container"><div class="loader"><div class="spinner"></div>Se incarca lansarile...</div></div>
 </section>
 
-<!-- NEO -->
 <section class="section" id="neo">
     <h2 class="section-title">Asteroizi <span>Near Earth Objects</span></h2>
     <p class="section-subtitle">Obiecte apropiate de Pamant detectate de NASA astazi</p>
-    <div class="neo-grid" id="neo-container">
-        <div class="loader"><div class="spinner"></div>Se scaneaza asteroizii...</div>
-    </div>
+    <div class="neo-grid" id="neo-container"><div class="loader"><div class="spinner"></div>Se scaneaza asteroizii...</div></div>
 </section>
 
-<!-- MARS ROVER -->
-<section class="section" id="mars">
-    <h2 class="section-title">Mars Rover <span>Curiosity & Perseverance</span></h2>
-    <p class="section-subtitle">Ultimele fotografii de pe suprafata planetei Marte</p>
-    <div class="mars-grid" id="mars-container">
-        <div class="loader"><div class="spinner"></div>Se descarca imaginile de pe Marte...</div>
-    </div>
-</section>
-
-<!-- SPACE NEWS -->
 <section class="section" id="news">
     <h2 class="section-title">Stiri din Spatiu <span class="teal">Live Feed</span></h2>
-    <p class="section-subtitle">Ultimele articole si evenimente din domeniul spatial</p>
-    <div class="news-grid" id="news-container">
-        <div class="loader"><div class="spinner"></div>Se incarca stirile...</div>
-    </div>
+    <p class="section-subtitle">Ultimele articole din domeniul spatial — se actualizeaza automat la fiecare 5 minute</p>
+    <div class="news-grid" id="news-container"><div class="loader"><div class="spinner"></div>Se incarca stirile...</div></div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-    <p>Creat pentru explorarea cosmosului &bull; Date furnizate de <a href="https://api.nasa.gov" target="_blank">NASA Open APIs</a>, <a href="https://thespacedevs.com" target="_blank">The Space Devs</a>, <a href="https://spaceflightnewsapi.net" target="_blank">SNAPI</a> &bull; 2026</p>
-    <p style="margin-top: 0.5rem;">
-        <a href="#" onclick="showApiModal(); return false;">Setari API Key</a>
-    </p>
+    <p>Creat pentru explorarea cosmosului &bull; Date de la <a href="https://api.nasa.gov" target="_blank">NASA</a>, <a href="https://celestrak.org" target="_blank">CelesTrak</a>, <a href="https://thespacedevs.com" target="_blank">The Space Devs</a>, <a href="https://spaceflightnewsapi.net" target="_blank">SNAPI</a> &bull; 2026</p>
+    <p style="margin-top: 0.5rem;"><a href="#" onclick="showApiModal(); return false;">Setari API Key</a></p>
 </footer>
 
-<!-- API KEY MODAL -->
 <div class="modal-overlay" id="apiModal">
     <div class="modal">
         <h2>NASA API Key</h2>
@@ -885,158 +484,112 @@
     </div>
 </div>
 
+<!-- satellite.js for SGP4 orbit propagation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
+
 <script>
 // ================================================================
 // CONFIG
 // ================================================================
 let NASA_API_KEY = localStorage.getItem('nasa_api_key') || 'DEMO_KEY';
 
-function showApiModal() {
-    document.getElementById('apiModal').classList.add('active');
-    document.getElementById('apiKeyInput').value = NASA_API_KEY === 'DEMO_KEY' ? '' : NASA_API_KEY;
+function showApiModal() { document.getElementById('apiModal').classList.add('active'); document.getElementById('apiKeyInput').value = NASA_API_KEY === 'DEMO_KEY' ? '' : NASA_API_KEY; }
+function closeApiModal() { document.getElementById('apiModal').classList.remove('active'); }
+function saveApiKey() { const key = document.getElementById('apiKeyInput').value.trim(); if (key) { NASA_API_KEY = key; localStorage.setItem('nasa_api_key', key); } closeApiModal(); loadAllData(); }
+
+// ================================================================
+// CELESTRAK + SATELLITE.JS CORE ENGINE
+// ================================================================
+async function searchCelesTrak(query) {
+    try {
+        const q = query.trim();
+        if (!q) return [];
+        const isNumber = /^\d+$/.test(q);
+        const param = isNumber ? 'CATNR' : 'NAME';
+        const url = 'https://celestrak.org/NORAD/elements/gp.php?' + param + '=' + encodeURIComponent(q) + '&FORMAT=tle';
+        const res = await fetch(url);
+        const text = await res.text();
+        if (text.includes('<!DOCTYPE') || text.includes('<html') || text.trim().length < 20) return [];
+        const lines = text.split('\n').map(l => l.trimEnd()).filter(l => l.length > 0);
+        const results = [];
+        for (let i = 0; i + 2 < lines.length; i += 3) {
+            const name = lines[i].trim();
+            const t1 = lines[i+1], t2 = lines[i+2];
+            if (t1 && t1.startsWith('1 ') && t2 && t2.startsWith('2 ')) {
+                results.push({ name, tle1: t1, tle2: t2, noradId: parseInt(t1.substring(2, 7).trim()) });
+            }
+        }
+        return results;
+    } catch (e) { console.error('CelesTrak error:', e); return []; }
 }
 
-function closeApiModal() {
-    document.getElementById('apiModal').classList.remove('active');
-}
-
-function saveApiKey() {
-    const key = document.getElementById('apiKeyInput').value.trim();
-    if (key) {
-        NASA_API_KEY = key;
-        localStorage.setItem('nasa_api_key', key);
-    }
-    closeApiModal();
-    loadAllData();
+function computePosition(tle1, tle2) {
+    try {
+        const satrec = satellite.twoline2satrec(tle1, tle2);
+        const now = new Date();
+        const pv = satellite.propagate(satrec, now);
+        if (!pv.position || typeof pv.position === 'boolean') return null;
+        const gmst = satellite.gstime(now);
+        const geo = satellite.eciToGeodetic(pv.position, gmst);
+        const vx = pv.velocity.x, vy = pv.velocity.y, vz = pv.velocity.z;
+        return {
+            latitude: satellite.degreesLat(geo.latitude),
+            longitude: satellite.degreesLong(geo.longitude),
+            altitude: geo.height,
+            velocity: Math.sqrt(vx*vx + vy*vy + vz*vz) * 3600
+        };
+    } catch (e) { return null; }
 }
 
 // ================================================================
-// SATELLITE DATABASE (50+ satellites)
+// POPULAR SATELLITES
 // ================================================================
-const SATELLITE_DB = [
+const POPULAR_SATS = [
     { name: 'ISS (ZARYA)', noradId: 25544, type: 'Statie Spatiala', operator: 'International' },
     { name: 'HUBBLE', noradId: 20580, type: 'Telescop Spatial', operator: 'NASA/ESA' },
-    { name: 'TIANGONG', noradId: 54216, type: 'Statie Spatiala', operator: 'CNSA (China)' },
+    { name: 'TIANGONG', noradId: 54216, type: 'Statie Spatiala', operator: 'CNSA' },
+    { name: 'JWST', noradId: 50463, type: 'Telescop IR', operator: 'NASA/ESA/CSA' },
     { name: 'TERRA', noradId: 25994, type: 'Observare Pamant', operator: 'NASA' },
     { name: 'AQUA', noradId: 27424, type: 'Observare Pamant', operator: 'NASA' },
     { name: 'LANDSAT 9', noradId: 49260, type: 'Observare Pamant', operator: 'NASA/USGS' },
-    { name: 'GOES-16', noradId: 41866, type: 'Meteorologic Geo', operator: 'NOAA' },
-    { name: 'JASON-3', noradId: 41240, type: 'Oceanografie', operator: 'NASA/CNES' },
-    { name: 'NOAA-20 (JPSS-1)', noradId: 43013, type: 'Meteorologic', operator: 'NOAA' },
-    { name: 'SUOMI NPP', noradId: 37849, type: 'Meteorologic', operator: 'NASA/NOAA' },
-    { name: 'METOP-B', noradId: 38771, type: 'Meteorologic', operator: 'EUMETSAT' },
+    { name: 'GOES-16', noradId: 41866, type: 'Meteorologic', operator: 'NOAA' },
+    { name: 'NOAA-20', noradId: 43013, type: 'Meteorologic', operator: 'NOAA' },
+    { name: 'TESS', noradId: 43435, type: 'Exoplanete', operator: 'NASA' },
+    { name: 'STARLINK-1007', noradId: 44713, type: 'Internet', operator: 'SpaceX' },
     { name: 'SENTINEL-2A', noradId: 40697, type: 'Observare Pamant', operator: 'ESA' },
-    { name: 'GPS IIR-M 1', noradId: 28874, type: 'Navigatie GPS', operator: 'USSF' },
-    { name: 'GPS IIR-M 2', noradId: 29486, type: 'Navigatie GPS', operator: 'USSF' },
-    { name: 'GPS IIR-M 3', noradId: 32260, type: 'Navigatie GPS', operator: 'USSF' },
-    { name: 'GPS IIR-M 4', noradId: 32384, type: 'Navigatie GPS', operator: 'USSF' },
-    { name: 'STARLINK-1007', noradId: 44713, type: 'Internet Constelatie', operator: 'SpaceX' },
-    { name: 'STARLINK-1130', noradId: 44914, type: 'Internet Constelatie', operator: 'SpaceX' },
-    { name: 'STARLINK-2483', noradId: 48601, type: 'Internet Constelatie', operator: 'SpaceX' },
-    { name: 'STARLINK-30046', noradId: 56174, type: 'Internet Constelatie', operator: 'SpaceX' },
-    { name: 'ONEWEB-0012', noradId: 44057, type: 'Internet Constelatie', operator: 'OneWeb' },
-    { name: 'ONEWEB-0036', noradId: 44064, type: 'Internet Constelatie', operator: 'OneWeb' },
-    { name: 'IRIDIUM NEXT 106', noradId: 42804, type: 'Comunicatii', operator: 'Iridium' },
-    { name: 'IRIDIUM NEXT 112', noradId: 42808, type: 'Comunicatii', operator: 'Iridium' },
-    { name: 'IRIDIUM NEXT 137', noradId: 43571, type: 'Comunicatii', operator: 'Iridium' },
-    { name: 'TDRS 13', noradId: 43077, type: 'Releu Date (TDRSS)', operator: 'NASA' },
-    { name: 'TDRS 11', noradId: 39070, type: 'Releu Date (TDRSS)', operator: 'NASA' },
-    { name: 'ICESAT-2', noradId: 43613, type: 'Altimetru Laser', operator: 'NASA' },
-    { name: 'CLOUDSAT', noradId: 29107, type: 'Studiu Nori', operator: 'NASA/CSA' },
-    { name: 'CALIPSO', noradId: 29108, type: 'Studiu Atmosfera', operator: 'NASA/CNES' },
-    { name: 'AURA', noradId: 28376, type: 'Chimie Atmosferica', operator: 'NASA' },
-    { name: 'DSCOVR', noradId: 40390, type: 'Vant Solar (L1)', operator: 'NOAA/NASA' },
-    { name: 'STEREO-A', noradId: 29510, type: 'Observator Solar', operator: 'NASA' },
+    { name: 'CHANDRA', noradId: 25867, type: 'Telescop X-Ray', operator: 'NASA' },
+    { name: 'FERMI', noradId: 33053, type: 'Telescop Gamma', operator: 'NASA' },
     { name: 'SDO', noradId: 36395, type: 'Observator Solar', operator: 'NASA' },
-    { name: 'CHANDRA X-RAY', noradId: 25867, type: 'Telescop X-Ray', operator: 'NASA' },
-    { name: 'INTEGRAL', noradId: 27540, type: 'Telescop Gamma', operator: 'ESA' },
-    { name: 'XMM-NEWTON', noradId: 25989, type: 'Telescop X-Ray', operator: 'ESA' },
-    { name: 'FERMI GLAST', noradId: 33053, type: 'Telescop Gamma', operator: 'NASA' },
-    { name: 'SWIFT', noradId: 28485, type: 'Telescop Multi-Unda', operator: 'NASA' },
-    { name: 'WISE / NEOWISE', noradId: 36119, type: 'Infrarosu', operator: 'NASA' },
+    { name: 'ICESAT-2', noradId: 43613, type: 'Altimetru Laser', operator: 'NASA' },
     { name: 'GAIA', noradId: 39479, type: 'Astrometrie', operator: 'ESA' },
-    { name: 'JWST', noradId: 50463, type: 'Telescop Spatial IR', operator: 'NASA/ESA/CSA' },
-    { name: 'TESS', noradId: 43435, type: 'Vanatoare Exoplanete', operator: 'NASA' },
-    { name: 'COSMOS 2251 DEB', noradId: 34454, type: 'Debris', operator: 'Rusia (defunct)' },
-    { name: 'CBERS 4A', noradId: 44883, type: 'Observare Pamant', operator: 'INPE/CAST' },
-    { name: 'RESOURCESAT-2A', noradId: 41877, type: 'Observare Pamant', operator: 'ISRO' },
-    { name: 'CARTOSAT-3', noradId: 44804, type: 'Observare Pamant', operator: 'ISRO' },
-    { name: 'METEOR-M 2-2', noradId: 44387, type: 'Meteorologic', operator: 'Roscosmos' },
-    { name: 'FENGYUN-3D', noradId: 43010, type: 'Meteorologic', operator: 'CMA (China)' },
-    { name: 'COSMO-SKYMED 2', noradId: 37216, type: 'Radar SAR', operator: 'ASI (Italia)' },
-    { name: 'RADARSAT-2', noradId: 32382, type: 'Radar SAR', operator: 'CSA (Canada)' },
-    { name: 'HAYABUSA2', noradId: 40319, type: 'Sonda Asteroizi', operator: 'JAXA' },
-    { name: 'SPEKTR-RG', noradId: 44432, type: 'Telescop X-Ray', operator: 'Roscosmos/DLR' },
+    { name: 'SWIFT', noradId: 28485, type: 'Multi-Unda', operator: 'NASA' },
+    { name: 'CLOUDSAT', noradId: 29107, type: 'Studiu Nori', operator: 'NASA/CSA' },
+    { name: 'AURA', noradId: 28376, type: 'Atmosfera', operator: 'NASA' },
 ];
-
-const TOP5_IDS = [25544, 20580, 54216, 50463, 44713];
+const TOP5_IDS = [25544, 20580, 54216, 50463, 43435];
 
 // ================================================================
-// STARFIELD ANIMATION
+// STARFIELD
 // ================================================================
-(function initStarfield() {
-    const canvas = document.getElementById('starfield');
-    const ctx = canvas.getContext('2d');
+(function() {
+    const c = document.getElementById('starfield'), ctx = c.getContext('2d');
     let stars = [];
-    const STAR_COUNT = 300;
-
-    function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+    function resize() { c.width = window.innerWidth; c.height = window.innerHeight; }
+    function create() { stars = []; for (let i = 0; i < 300; i++) stars.push({ x: Math.random()*c.width, y: Math.random()*c.height, s: Math.random()*2+0.5, sp: Math.random()*0.5+0.1, o: Math.random()*0.8+0.2, tw: Math.random()*0.02+0.005 }); }
+    let t = 0;
+    function draw() {
+        ctx.clearRect(0, 0, c.width, c.height); t += 0.016;
+        for (const s of stars) { const tw = Math.sin(t*s.tw*60)*0.3+0.7; ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, Math.PI*2); ctx.fillStyle = `rgba(200,220,255,${s.o*tw})`; ctx.fill(); s.y += s.sp; if (s.y > c.height) { s.y = 0; s.x = Math.random()*c.width; } }
+        requestAnimationFrame(draw);
     }
-
-    function createStars() {
-        stars = [];
-        for (let i = 0; i < STAR_COUNT; i++) {
-            stars.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                size: Math.random() * 2 + 0.5,
-                speed: Math.random() * 0.5 + 0.1,
-                opacity: Math.random() * 0.8 + 0.2,
-                twinkleSpeed: Math.random() * 0.02 + 0.005
-            });
-        }
-    }
-
-    let time = 0;
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        time += 0.016;
-
-        for (const s of stars) {
-            const twinkle = Math.sin(time * s.twinkleSpeed * 60) * 0.3 + 0.7;
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(200, 220, 255, ${s.opacity * twinkle})`;
-            ctx.fill();
-
-            s.y += s.speed;
-            if (s.y > canvas.height) {
-                s.y = 0;
-                s.x = Math.random() * canvas.width;
-            }
-        }
-        requestAnimationFrame(animate);
-    }
-
-    window.addEventListener('resize', () => { resize(); createStars(); });
-    resize();
-    createStars();
-    animate();
+    window.addEventListener('resize', () => { resize(); create(); }); resize(); create(); draw();
 })();
 
 // ================================================================
-// SMOOTH SCROLL NAV
+// SMOOTH SCROLL
 // ================================================================
 document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
-        document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
-    });
+    link.addEventListener('click', e => { e.preventDefault(); const t = document.querySelector(link.getAttribute('href')); if (t) t.scrollIntoView({ behavior: 'smooth' }); document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active')); link.classList.add('active'); });
 });
 
 // ================================================================
@@ -1044,119 +597,105 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 // ================================================================
 async function loadAPOD() {
     try {
-        const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`);
+        const res = await fetch('https://api.nasa.gov/planetary/apod?api_key=' + NASA_API_KEY);
         const data = await res.json();
         const container = document.getElementById('apod-container');
-
-        let media = '';
-        if (data.media_type === 'video') {
-            media = `<iframe src="${data.url}" allowfullscreen></iframe>`;
-        } else {
-            media = `<img src="${data.hdurl || data.url}" alt="${data.title}" loading="lazy">`;
-        }
-
-        container.innerHTML = `
-            <div class="apod-card">
-                ${media}
-                <div class="apod-info">
-                    <h3>${data.title}</h3>
-                    <div class="date">${data.date} ${data.copyright ? '• &copy; ' + data.copyright : ''}</div>
-                    <p>${data.explanation}</p>
-                </div>
-            </div>
-        `;
-    } catch (e) {
-        document.getElementById('apod-container').innerHTML = `<div class="loader">Nu s-a putut incarca APOD. Verifica API key-ul.</div>`;
-    }
+        let media = data.media_type === 'video' ? '<iframe src="' + data.url + '" allowfullscreen></iframe>' : '<img src="' + (data.hdurl || data.url) + '" alt="' + data.title + '" loading="lazy">';
+        container.innerHTML = '<div class="apod-card">' + media + '<div class="apod-info"><h3>' + data.title + '</h3><div class="date">' + data.date + (data.copyright ? ' &bull; &copy; ' + data.copyright : '') + '</div><p>' + data.explanation + '</p></div></div>';
+    } catch (e) { document.getElementById('apod-container').innerHTML = '<div class="loader">Nu s-a putut incarca APOD.</div>'; }
 }
 
 // ================================================================
-// ISS TRACKER
+// SPACE TRACKER — any satellite via CelesTrak + satellite.js
 // ================================================================
 const worldMapImg = new Image();
 worldMapImg.crossOrigin = 'anonymous';
 worldMapImg.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Equirectangular-projection.jpg/1280px-Equirectangular-projection.jpg';
 
-let issTrail = [];
+let trackerTLE = null;
+let trackerTrail = [];
+let trackerSearching = false;
 
-async function updateISS() {
-    try {
-        const res = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
-        const data = await res.json();
-
-        document.getElementById('issLat').textContent = data.latitude.toFixed(4) + '\u00B0';
-        document.getElementById('issLon').textContent = data.longitude.toFixed(4) + '\u00B0';
-        document.getElementById('issAlt').textContent = data.altitude.toFixed(1);
-        document.getElementById('issVel').textContent = Math.round(data.velocity);
-
-        issTrail.push({ lat: data.latitude, lon: data.longitude });
-        if (issTrail.length > 100) issTrail.shift();
-
-        drawISSMap(data.latitude, data.longitude);
-    } catch (e) {
-        console.error('ISS error:', e);
+async function initTracker() {
+    const results = await searchCelesTrak('25544');
+    if (results.length > 0) {
+        trackerTLE = results[0];
+        document.getElementById('trackedName').textContent = trackerTLE.name;
+        document.getElementById('trackedNorad').textContent = 'NORAD ' + trackerTLE.noradId;
+        trackerTrail = [];
+        updateTrackerPosition();
+    } else {
+        // Fallback to wheretheiss.at for ISS
+        updateTrackerFallback();
     }
 }
 
-function drawISSMap(lat, lon) {
+function updateTrackerPosition() {
+    if (!trackerTLE) return;
+    const pos = computePosition(trackerTLE.tle1, trackerTLE.tle2);
+    if (!pos) return;
+    document.getElementById('issLat').textContent = pos.latitude.toFixed(4) + '\u00B0';
+    document.getElementById('issLon').textContent = pos.longitude.toFixed(4) + '\u00B0';
+    document.getElementById('issAlt').textContent = pos.altitude.toFixed(1);
+    document.getElementById('issVel').textContent = Math.round(pos.velocity);
+    trackerTrail.push({ lat: pos.latitude, lon: pos.longitude });
+    if (trackerTrail.length > 150) trackerTrail.shift();
+    drawTrackerMap(pos.latitude, pos.longitude);
+}
+
+async function updateTrackerFallback() {
+    try {
+        const res = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
+        const d = await res.json();
+        document.getElementById('issLat').textContent = d.latitude.toFixed(4) + '\u00B0';
+        document.getElementById('issLon').textContent = d.longitude.toFixed(4) + '\u00B0';
+        document.getElementById('issAlt').textContent = d.altitude.toFixed(1);
+        document.getElementById('issVel').textContent = Math.round(d.velocity);
+        trackerTrail.push({ lat: d.latitude, lon: d.longitude });
+        if (trackerTrail.length > 150) trackerTrail.shift();
+        drawTrackerMap(d.latitude, d.longitude);
+    } catch (e) { console.error('Tracker fallback error:', e); }
+}
+
+async function searchTrackerSatellite() {
+    const input = document.getElementById('trackerSearch');
+    const query = input.value.trim();
+    if (!query || trackerSearching) return;
+    trackerSearching = true;
+    const btn = document.querySelector('.tracker-search-bar button');
+    btn.textContent = 'Se cauta...';
+    const results = await searchCelesTrak(query);
+    if (results.length === 0) {
+        document.getElementById('trackedName').textContent = 'Nu am gasit: ' + query;
+        document.getElementById('trackedNorad').textContent = 'Incearca alt nume sau NORAD ID';
+        btn.textContent = 'Cauta'; trackerSearching = false; return;
+    }
+    trackerTLE = results[0];
+    trackerTrail = [];
+    document.getElementById('trackedName').textContent = trackerTLE.name;
+    document.getElementById('trackedNorad').textContent = 'NORAD ' + trackerTLE.noradId;
+    updateTrackerPosition();
+    btn.textContent = 'Cauta'; trackerSearching = false; input.value = '';
+}
+
+document.getElementById('trackerSearch').addEventListener('keydown', function(e) { if (e.key === 'Enter') searchTrackerSatellite(); });
+
+function drawTrackerMap(lat, lon) {
     const canvas = document.getElementById('issCanvas');
     const ctx = canvas.getContext('2d');
     const rect = canvas.parentElement.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-
-    ctx.fillStyle = '#0a0a2e';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    if (worldMapImg.complete) {
-        ctx.globalAlpha = 0.3;
-        ctx.drawImage(worldMapImg, 0, 0, canvas.width, canvas.height);
-        ctx.globalAlpha = 1;
-    }
-
-    ctx.strokeStyle = 'rgba(0, 212, 255, 0.08)';
-    ctx.lineWidth = 0.5;
-    for (let i = 0; i < 12; i++) {
-        const x = (i / 12) * canvas.width;
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
-    }
-    for (let i = 0; i < 6; i++) {
-        const y = (i / 6) * canvas.height;
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
-    }
-
-    if (issTrail.length > 1) {
-        ctx.beginPath();
-        ctx.strokeStyle = 'rgba(0, 212, 255, 0.5)';
-        ctx.lineWidth = 2;
-        for (let i = 0; i < issTrail.length; i++) {
-            const px = ((issTrail[i].lon + 180) / 360) * canvas.width;
-            const py = ((90 - issTrail[i].lat) / 180) * canvas.height;
-            if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-        }
-        ctx.stroke();
-    }
-
-    const x = ((lon + 180) / 360) * canvas.width;
-    const y = ((90 - lat) / 180) * canvas.height;
-
-    const grad = ctx.createRadialGradient(x, y, 0, x, y, 25);
-    grad.addColorStop(0, 'rgba(0, 212, 255, 0.6)');
-    grad.addColorStop(1, 'rgba(0, 212, 255, 0)');
-    ctx.fillStyle = grad;
-    ctx.fillRect(x - 25, y - 25, 50, 50);
-
-    ctx.beginPath();
-    ctx.arc(x, y, 5, 0, Math.PI * 2);
-    ctx.fillStyle = '#00d4ff';
-    ctx.fill();
-    ctx.strokeStyle = '#fff';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    ctx.font = '11px Orbitron, sans-serif';
-    ctx.fillStyle = '#00d4ff';
-    ctx.fillText('ISS', x + 10, y - 8);
+    canvas.width = rect.width; canvas.height = rect.height;
+    ctx.fillStyle = '#0a0a2e'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    if (worldMapImg.complete) { ctx.globalAlpha = 0.3; ctx.drawImage(worldMapImg, 0, 0, canvas.width, canvas.height); ctx.globalAlpha = 1; }
+    ctx.strokeStyle = 'rgba(0, 212, 255, 0.08)'; ctx.lineWidth = 0.5;
+    for (let i = 0; i < 12; i++) { const x = (i/12)*canvas.width; ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,canvas.height); ctx.stroke(); }
+    for (let i = 0; i < 6; i++) { const y = (i/6)*canvas.height; ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); ctx.stroke(); }
+    if (trackerTrail.length > 1) { ctx.beginPath(); ctx.strokeStyle = 'rgba(0, 212, 255, 0.5)'; ctx.lineWidth = 2; for (let i = 0; i < trackerTrail.length; i++) { const px = ((trackerTrail[i].lon+180)/360)*canvas.width; const py = ((90-trackerTrail[i].lat)/180)*canvas.height; if (i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py); } ctx.stroke(); }
+    const x = ((lon+180)/360)*canvas.width, y = ((90-lat)/180)*canvas.height;
+    const grad = ctx.createRadialGradient(x,y,0,x,y,25); grad.addColorStop(0, 'rgba(0,212,255,0.6)'); grad.addColorStop(1, 'rgba(0,212,255,0)'); ctx.fillStyle = grad; ctx.fillRect(x-25,y-25,50,50);
+    ctx.beginPath(); ctx.arc(x,y,6,0,Math.PI*2); ctx.fillStyle = '#00d4ff'; ctx.fill(); ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+    const label = trackerTLE ? trackerTLE.name.split(' ')[0] : 'SAT';
+    ctx.font = '11px Orbitron, sans-serif'; ctx.fillStyle = '#00d4ff'; ctx.fillText(label, x+12, y-8);
 }
 
 async function loadPeopleInSpace() {
@@ -1164,122 +703,107 @@ async function loadPeopleInSpace() {
         const res = await fetch('http://api.open-notify.org/astros.json');
         const data = await res.json();
         document.getElementById('issPeople').textContent = data.number;
-        const names = data.people.map(p => p.name).join(', ');
-        document.getElementById('issPeopleNames').textContent = names;
-    } catch (e) {
-        document.getElementById('issPeople').textContent = '~10';
-        document.getElementById('issPeopleNames').textContent = 'Nu s-au putut incarca numele';
-    }
+        document.getElementById('issPeopleNames').textContent = data.people.map(p => p.name).join(', ');
+    } catch (e) { document.getElementById('issPeople').textContent = '~10'; document.getElementById('issPeopleNames').textContent = 'Nu s-au putut incarca numele'; }
 }
 
 // ================================================================
-// SATELLITES — live tracking, search, world map
+// SATELLITES — CelesTrak search 10,000+
 // ================================================================
-let satLiveData = {};
-let satDisplayList = [];
-let satFilterText = '';
+let satTLECache = {};
+let satPositionCache = {};
+let satSearchResults = null;
+let satSearchBusy = false;
 
-async function fetchSatData(noradId) {
-    try {
-        const res = await fetch(`https://api.wheretheiss.at/v1/satellites/${noradId}`);
-        if (!res.ok) return null;
-        return await res.json();
-    } catch {
-        return null;
+async function loadPopularSatellites() {
+    const batches = [];
+    for (let i = 0; i < POPULAR_SATS.length; i += 5) {
+        batches.push(POPULAR_SATS.slice(i, i+5));
+    }
+    for (const batch of batches) {
+        await Promise.all(batch.map(async sat => {
+            if (satTLECache[sat.noradId]) return;
+            const r = await searchCelesTrak(String(sat.noradId));
+            if (r.length > 0) satTLECache[sat.noradId] = r[0];
+        }));
     }
 }
 
-async function loadTop5Satellites() {
-    const promises = TOP5_IDS.map(async id => {
-        const data = await fetchSatData(id);
-        if (data) satLiveData[id] = data;
-    });
-    await Promise.all(promises);
+function updateSatPositions() {
+    for (const [id, tle] of Object.entries(satTLECache)) {
+        const pos = computePosition(tle.tle1, tle.tle2);
+        if (pos) satPositionCache[id] = pos;
+    }
 }
+
+async function searchSatellitesCelesTrak() {
+    const input = document.getElementById('satSearch');
+    const query = input.value.trim();
+    if (!query) { satSearchResults = null; renderSatellites(); drawSatMap(); return; }
+    if (satSearchBusy) return;
+    satSearchBusy = true;
+    document.getElementById('sat-container').innerHTML = '<div class="loader"><div class="spinner"></div>Se cauta in baza de date CelesTrak (~10.000+ sateliti)...</div>';
+    const results = await searchCelesTrak(query);
+    if (results.length === 0) {
+        document.getElementById('sat-container').innerHTML = '<div class="loader">Niciun satelit gasit pentru: "' + query + '"</div>';
+        document.getElementById('satCount').textContent = '0 rezultate';
+        satSearchBusy = false; return;
+    }
+    for (const sat of results) { satTLECache[sat.noradId] = sat; const pos = computePosition(sat.tle1, sat.tle2); if (pos) satPositionCache[sat.noradId] = pos; }
+    satSearchResults = results;
+    renderSatellites(); drawSatMap();
+    satSearchBusy = false;
+}
+
+document.getElementById('satSearch').addEventListener('keydown', function(e) { if (e.key === 'Enter') searchSatellitesCelesTrak(); });
+document.getElementById('satSearch').addEventListener('input', function() { if (!this.value.trim()) { satSearchResults = null; renderSatellites(); drawSatMap(); } });
 
 async function loadSatellites() {
-    await loadTop5Satellites();
+    await loadPopularSatellites();
+    updateSatPositions();
     renderSatellites();
     drawSatMap();
 }
 
 function renderSatellites() {
     const container = document.getElementById('sat-container');
-    const filter = satFilterText.toLowerCase();
-
-    let filtered = SATELLITE_DB.filter(s =>
-        s.name.toLowerCase().includes(filter) ||
-        s.type.toLowerCase().includes(filter) ||
-        s.operator.toLowerCase().includes(filter) ||
-        String(s.noradId).includes(filter)
-    );
-
-    // Top 5 always first when no filter
-    if (!filter) {
-        const top5 = filtered.filter(s => TOP5_IDS.includes(s.noradId));
-        const rest = filtered.filter(s => !TOP5_IDS.includes(s.noradId));
-        filtered = [...top5, ...rest];
-    }
-
-    // If filtered but not showing top5, fetch on demand
-    const needFetch = filtered.filter(s => !satLiveData[s.noradId]).slice(0, 5);
-    if (needFetch.length > 0 && filter) {
-        Promise.all(needFetch.map(async s => {
-            const data = await fetchSatData(s.noradId);
-            if (data) {
-                satLiveData[s.noradId] = data;
-                renderSatellites();
-                drawSatMap();
-            }
-        }));
-    }
-
-    document.getElementById('satCount').textContent = filtered.length + ' sateliti';
-
+    let sats;
+    if (satSearchResults) { sats = satSearchResults; }
+    else { sats = POPULAR_SATS.map(s => ({ ...s, ...(satTLECache[s.noradId] || {}) })); }
+    document.getElementById('satCount').textContent = sats.length + (satSearchResults ? ' rezultate CelesTrak' : ' sateliti populari');
+    const limit = Math.min(sats.length, satSearchResults ? 50 : 20);
     let html = '';
-    const displayLimit = filter ? Math.min(filtered.length, 20) : Math.min(filtered.length, 10);
-
-    for (let i = 0; i < displayLimit; i++) {
-        const sat = filtered[i];
-        const live = satLiveData[sat.noradId];
-        const isTop = TOP5_IDS.includes(sat.noradId);
-
-        if (live) {
-            html += `
-                <div class="sat-card ${isTop ? 'top-sat' : ''}">
-                    <h4>${sat.name} <span class="sat-badge live">LIVE</span></h4>
-                    <div class="sat-detail"><span>Tip</span><span>${sat.type}</span></div>
-                    <div class="sat-detail"><span>Operator</span><span>${sat.operator}</span></div>
-                    <div class="sat-detail"><span>NORAD ID</span><span>${sat.noradId}</span></div>
-                    <div class="sat-detail"><span>Latitudine</span><span>${live.latitude.toFixed(2)}\u00B0</span></div>
-                    <div class="sat-detail"><span>Longitudine</span><span>${live.longitude.toFixed(2)}\u00B0</span></div>
-                    <div class="sat-detail"><span>Altitudine</span><span>${live.altitude.toFixed(0)} km</span></div>
-                    <div class="sat-detail"><span>Viteza</span><span>${Math.round(live.velocity)} km/h</span></div>
-                    <div class="sat-detail"><span>Vizibilitate</span><span>${live.visibility || 'N/A'}</span></div>
-                </div>
-            `;
-        } else {
-            html += `
-                <div class="sat-card">
-                    <h4>${sat.name} <span class="sat-badge db">DB</span></h4>
-                    <div class="sat-detail"><span>Tip</span><span>${sat.type}</span></div>
-                    <div class="sat-detail"><span>Operator</span><span>${sat.operator}</span></div>
-                    <div class="sat-detail"><span>NORAD ID</span><span>${sat.noradId}</span></div>
-                    <div class="sat-detail"><span>Status</span><span>In orbita</span></div>
-                </div>
-            `;
+    for (let i = 0; i < limit; i++) {
+        const sat = sats[i]; const pos = satPositionCache[sat.noradId];
+        const isTop = !satSearchResults && TOP5_IDS.includes(sat.noradId);
+        const badge = satSearchResults ? 'search' : (pos ? 'live' : 'db');
+        const badgeLabel = satSearchResults ? 'CELESTRAK' : (pos ? 'LIVE' : 'DB');
+        html += '<div class="sat-card ' + (isTop ? 'top-sat' : '') + '"><h4>' + sat.name + ' <span class="sat-badge ' + badge + '">' + badgeLabel + '</span></h4>';
+        if (sat.type) html += '<div class="sat-detail"><span>Tip</span><span>' + sat.type + '</span></div>';
+        if (sat.operator) html += '<div class="sat-detail"><span>Operator</span><span>' + sat.operator + '</span></div>';
+        html += '<div class="sat-detail"><span>NORAD ID</span><span>' + sat.noradId + '</span></div>';
+        if (pos) {
+            html += '<div class="sat-detail"><span>Latitudine</span><span>' + pos.latitude.toFixed(2) + '\u00B0</span></div>';
+            html += '<div class="sat-detail"><span>Longitudine</span><span>' + pos.longitude.toFixed(2) + '\u00B0</span></div>';
+            html += '<div class="sat-detail"><span>Altitudine</span><span>' + pos.altitude.toFixed(0) + ' km</span></div>';
+            html += '<div class="sat-detail"><span>Viteza</span><span>' + Math.round(pos.velocity) + ' km/h</span></div>';
         }
+        html += '<button class="sat-track-btn" onclick="trackFromSatList(\'' + sat.name.replace(/'/g, "\\'") + '\',' + sat.noradId + ')">Urmareste pe harta &#x2191;</button></div>';
     }
-
-    if (filtered.length > displayLimit) {
-        html += `<div class="loader" style="grid-column: 1/-1; padding: 1rem;">... si inca ${filtered.length - displayLimit} sateliti. Foloseste cautarea pentru a filtra.</div>`;
-    }
-
-    if (filtered.length === 0) {
-        html = '<div class="loader" style="grid-column: 1/-1;">Niciun satelit gasit pentru cautarea ta.</div>';
-    }
-
+    if (sats.length > limit) html += '<div class="loader" style="grid-column:1/-1;padding:1rem;">... si inca ' + (sats.length - limit) + ' sateliti. Rafineaza cautarea.</div>';
+    if (sats.length === 0) html = '<div class="loader" style="grid-column:1/-1;">Niciun satelit gasit.</div>';
     container.innerHTML = html;
+}
+
+function trackFromSatList(name, noradId) {
+    const tle = satTLECache[noradId];
+    if (tle) {
+        trackerTLE = tle; trackerTrail = [];
+        document.getElementById('trackedName').textContent = tle.name;
+        document.getElementById('trackedNorad').textContent = 'NORAD ' + tle.noradId;
+        updateTrackerPosition();
+        document.getElementById('iss').scrollIntoView({ behavior: 'smooth' });
+    }
 }
 
 function drawSatMap() {
@@ -1287,393 +811,148 @@ function drawSatMap() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     const rect = canvas.parentElement.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-
-    ctx.fillStyle = '#0a0a2e';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    if (worldMapImg.complete) {
-        ctx.globalAlpha = 0.25;
-        ctx.drawImage(worldMapImg, 0, 0, canvas.width, canvas.height);
-        ctx.globalAlpha = 1;
+    canvas.width = rect.width; canvas.height = rect.height;
+    ctx.fillStyle = '#0a0a2e'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    if (worldMapImg.complete) { ctx.globalAlpha = 0.25; ctx.drawImage(worldMapImg, 0, 0, canvas.width, canvas.height); ctx.globalAlpha = 1; }
+    ctx.strokeStyle = 'rgba(123,47,247,0.07)'; ctx.lineWidth = 0.5;
+    for (let i = 0; i <= 12; i++) { const x = (i/12)*canvas.width; ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,canvas.height); ctx.stroke(); }
+    for (let i = 0; i <= 6; i++) { const y = (i/6)*canvas.height; ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); ctx.stroke(); }
+    const colors = ['#00d4ff','#f9ca24','#ff6b6b','#00ff88','#b388ff','#ff9f43','#00cec9','#fd79a8','#6c5ce7','#e17055'];
+    let satsToShow = satSearchResults ? satSearchResults.slice(0,100) : POPULAR_SATS;
+    let drawn = 0;
+    for (let i = 0; i < satsToShow.length; i++) {
+        const sat = satsToShow[i]; const pos = satPositionCache[sat.noradId];
+        if (!pos) continue;
+        const x = ((pos.longitude+180)/360)*canvas.width, y = ((90-pos.latitude)/180)*canvas.height;
+        const color = colors[i%colors.length]; const isTop = !satSearchResults && TOP5_IDS.includes(sat.noradId);
+        if (isTop || i < 5) { const g = ctx.createRadialGradient(x,y,0,x,y,18); g.addColorStop(0, color+'66'); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.fillRect(x-18,y-18,36,36); }
+        ctx.beginPath(); ctx.arc(x,y, isTop?5:3, 0, Math.PI*2); ctx.fillStyle = color; ctx.fill();
+        if (isTop || (satSearchResults && i < 10)) { ctx.strokeStyle = '#fff'; ctx.lineWidth = 1; ctx.stroke(); ctx.font = '9px Orbitron, sans-serif'; ctx.fillStyle = color; ctx.fillText(sat.name.length > 15 ? sat.name.substring(0,12)+'...' : sat.name, x+8, y-5); }
+        drawn++;
     }
-
-    // Grid
-    ctx.strokeStyle = 'rgba(123, 47, 247, 0.07)';
-    ctx.lineWidth = 0.5;
-    for (let i = 0; i <= 12; i++) {
-        const x = (i / 12) * canvas.width;
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
-    }
-    for (let i = 0; i <= 6; i++) {
-        const y = (i / 6) * canvas.height;
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
-    }
-
-    // Draw each tracked satellite
-    const colorMap = {
-        25544: '#00d4ff',
-        20580: '#f9ca24',
-        54216: '#ff6b6b',
-        50463: '#00ff88',
-        44713: '#b388ff',
-    };
-
-    const entries = Object.entries(satLiveData);
-    for (const [idStr, data] of entries) {
-        const id = parseInt(idStr);
-        const x = ((data.longitude + 180) / 360) * canvas.width;
-        const y = ((90 - data.latitude) / 180) * canvas.height;
-        const color = colorMap[id] || '#7b2ff7';
-        const isTop = TOP5_IDS.includes(id);
-        const radius = isTop ? 5 : 3;
-
-        // Glow for top 5
-        if (isTop) {
-            const grad = ctx.createRadialGradient(x, y, 0, x, y, 18);
-            grad.addColorStop(0, color.replace(')', ',0.4)').replace('rgb', 'rgba'));
-            grad.addColorStop(1, 'rgba(0,0,0,0)');
-            ctx.fillStyle = grad;
-            ctx.fillRect(x - 18, y - 18, 36, 36);
-        }
-
-        ctx.beginPath();
-        ctx.arc(x, y, radius, 0, Math.PI * 2);
-        ctx.fillStyle = color;
-        ctx.fill();
-
-        if (isTop) {
-            ctx.strokeStyle = '#fff';
-            ctx.lineWidth = 1;
-            ctx.stroke();
-
-            const sat = SATELLITE_DB.find(s => s.noradId === id);
-            if (sat) {
-                ctx.font = '9px Orbitron, sans-serif';
-                ctx.fillStyle = color;
-                ctx.fillText(sat.name.split(' ')[0], x + 8, y - 5);
-            }
-        }
-    }
-
-    // Legend
-    ctx.font = '10px Exo 2, sans-serif';
-    ctx.fillStyle = 'rgba(255,255,255,0.5)';
-    ctx.fillText(`${entries.length} sateliti urmariti`, 10, canvas.height - 10);
+    ctx.font = '10px Exo 2, sans-serif'; ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.fillText(drawn + ' sateliti pe harta', 10, canvas.height-10);
 }
 
-// Satellite search handler
-document.getElementById('satSearch').addEventListener('input', function() {
-    satFilterText = this.value;
-    renderSatellites();
-});
-
 // ================================================================
-// ROCKET LAUNCHES (Launch Library 2)
+// ROCKET LAUNCHES
 // ================================================================
 let launchData = [];
-
 async function loadLaunches() {
     const container = document.getElementById('launch-container');
     try {
         const res = await fetch('https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=10&mode=list');
-        const data = await res.json();
-        launchData = data.results || [];
-
-        if (launchData.length === 0) {
-            container.innerHTML = '<div class="loader">Nicio lansare viitoare gasita.</div>';
-            return;
-        }
-
+        const data = await res.json(); launchData = data.results || [];
+        if (launchData.length === 0) { container.innerHTML = '<div class="loader">Nicio lansare gasita.</div>'; return; }
         renderLaunches();
-    } catch (e) {
-        console.error('Launches error:', e);
-        container.innerHTML = '<div class="loader">Nu s-au putut incarca lansarile. API-ul poate fi temporar indisponibil.</div>';
-    }
+    } catch (e) { container.innerHTML = '<div class="loader">Nu s-au putut incarca lansarile.</div>'; }
 }
 
 function renderLaunches() {
-    const container = document.getElementById('launch-container');
-    let html = '';
-
+    const container = document.getElementById('launch-container'); let html = '';
     for (const launch of launchData) {
         const name = launch.name || 'Lansare necunoscuta';
-        const rocket = launch.rocket?.configuration?.name || extractRocket(name);
+        const rocket = launch.rocket?.configuration?.name || name.split('|')[0].trim();
         const provider = launch.launch_service_provider?.name || 'Necunoscut';
         const pad = launch.pad?.name || 'Necunoscut';
         const padLoc = launch.pad?.location?.name || '';
         const netDate = launch.net ? new Date(launch.net) : null;
         const statusName = launch.status?.name || 'TBD';
         const statusAbbrev = launch.status?.abbrev || 'TBD';
-
-        let statusClass = 'tbd';
-        if (statusAbbrev === 'Go') statusClass = 'go';
-        else if (statusAbbrev === 'TBC') statusClass = 'tbc';
-
-        const dateStr = netDate ? netDate.toLocaleString('ro-RO', {
-            day: 'numeric', month: 'long', year: 'numeric',
-            hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
-        }) : 'TBD';
-
-        const countdownId = 'cd-' + (launch.id || Math.random().toString(36).substr(2, 6));
-
-        html += `
-            <div class="launch-card">
-                <h4>${name.length > 60 ? name.substring(0, 57) + '...' : name}</h4>
-                <span class="launch-status ${statusClass}">${statusName}</span>
-                <div class="launch-detail"><span>Racheta</span><span>${rocket}</span></div>
-                <div class="launch-detail"><span>Furnizor</span><span>${provider}</span></div>
-                <div class="launch-detail"><span>Rampa</span><span>${pad}</span></div>
-                ${padLoc ? `<div class="launch-detail"><span>Locatie</span><span>${padLoc}</span></div>` : ''}
-                <div class="launch-detail"><span>Data</span><span>${dateStr}</span></div>
-                <div class="launch-countdown" id="${countdownId}" data-net="${launch.net || ''}">--</div>
-            </div>
-        `;
+        let statusClass = 'tbd'; if (statusAbbrev === 'Go') statusClass = 'go'; else if (statusAbbrev === 'TBC') statusClass = 'tbc';
+        const dateStr = netDate ? netDate.toLocaleString('ro-RO', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZoneName: 'short' }) : 'TBD';
+        const cdId = 'cd-' + (launch.id || Math.random().toString(36).substr(2,6));
+        html += '<div class="launch-card"><h4>' + (name.length > 60 ? name.substring(0,57) + '...' : name) + '</h4><span class="launch-status ' + statusClass + '">' + statusName + '</span>';
+        html += '<div class="launch-detail"><span>Racheta</span><span>' + rocket + '</span></div>';
+        html += '<div class="launch-detail"><span>Furnizor</span><span>' + provider + '</span></div>';
+        html += '<div class="launch-detail"><span>Rampa</span><span>' + pad + '</span></div>';
+        if (padLoc) html += '<div class="launch-detail"><span>Locatie</span><span>' + padLoc + '</span></div>';
+        html += '<div class="launch-detail"><span>Data</span><span>' + dateStr + '</span></div>';
+        html += '<div class="launch-countdown" id="' + cdId + '" data-net="' + (launch.net||'') + '">--</div></div>';
     }
-
-    container.innerHTML = html;
-    updateCountdowns();
-}
-
-function extractRocket(name) {
-    const parts = name.split('|');
-    return parts[0].trim();
+    container.innerHTML = html; updateCountdowns();
 }
 
 function updateCountdowns() {
-    const els = document.querySelectorAll('.launch-countdown[data-net]');
-    els.forEach(el => {
+    document.querySelectorAll('.launch-countdown[data-net]').forEach(el => {
         const net = el.getAttribute('data-net');
         if (!net) { el.textContent = 'Data nedeterminata'; return; }
         const diff = new Date(net) - Date.now();
-        if (diff <= 0) {
-            el.textContent = 'Lansat / In desfasurare';
-            return;
-        }
-        const d = Math.floor(diff / 86400000);
-        const h = Math.floor((diff % 86400000) / 3600000);
-        const m = Math.floor((diff % 3600000) / 60000);
-        const s = Math.floor((diff % 60000) / 1000);
-        let parts = [];
-        if (d > 0) parts.push(d + 'z');
-        parts.push(String(h).padStart(2, '0') + 'h');
-        parts.push(String(m).padStart(2, '0') + 'm');
-        parts.push(String(s).padStart(2, '0') + 's');
-        el.textContent = 'T- ' + parts.join(' ');
+        if (diff <= 0) { el.textContent = 'Lansat / In desfasurare'; return; }
+        const d = Math.floor(diff/86400000), h = Math.floor((diff%86400000)/3600000), m = Math.floor((diff%3600000)/60000), s = Math.floor((diff%60000)/1000);
+        let p = []; if (d>0) p.push(d+'z'); p.push(String(h).padStart(2,'0')+'h'); p.push(String(m).padStart(2,'0')+'m'); p.push(String(s).padStart(2,'0')+'s');
+        el.textContent = 'T- ' + p.join(' ');
     });
 }
 
 // ================================================================
-// NEO - Near Earth Objects
+// NEO
 // ================================================================
 async function loadNEO() {
     try {
         const today = new Date().toISOString().split('T')[0];
-        const res = await fetch(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${NASA_API_KEY}`);
+        const res = await fetch('https://api.nasa.gov/neo/rest/v1/feed?start_date=' + today + '&end_date=' + today + '&api_key=' + NASA_API_KEY);
         const data = await res.json();
         const container = document.getElementById('neo-container');
-
         const neos = data.near_earth_objects[today] || [];
-        if (neos.length === 0) {
-            container.innerHTML = '<div class="loader">Niciun asteroid detectat astazi.</div>';
-            return;
-        }
-
-        neos.sort((a, b) => {
-            const distA = parseFloat(a.close_approach_data[0]?.miss_distance?.kilometers || 0);
-            const distB = parseFloat(b.close_approach_data[0]?.miss_distance?.kilometers || 0);
-            return distA - distB;
-        });
-
+        if (neos.length === 0) { container.innerHTML = '<div class="loader">Niciun asteroid detectat astazi.</div>'; return; }
+        neos.sort((a,b) => parseFloat(a.close_approach_data[0]?.miss_distance?.kilometers||0) - parseFloat(b.close_approach_data[0]?.miss_distance?.kilometers||0));
         let html = '';
-        for (const neo of neos.slice(0, 8)) {
-            const approach = neo.close_approach_data[0];
-            const isHazardous = neo.is_potentially_hazardous_asteroid;
-            const diamMin = (neo.estimated_diameter.meters.estimated_diameter_min).toFixed(0);
-            const diamMax = (neo.estimated_diameter.meters.estimated_diameter_max).toFixed(0);
-            const missKm = parseFloat(approach?.miss_distance?.kilometers || 0);
-            const missLunar = parseFloat(approach?.miss_distance?.lunar || 0);
-            const velocity = parseFloat(approach?.relative_velocity?.kilometers_per_hour || 0);
-
-            html += `
-                <div class="neo-card">
-                    <h4>${neo.name.replace(/[()]/g, '')}</h4>
-                    <span class="hazard ${isHazardous ? 'danger' : 'safe'}">${isHazardous ? 'Potential periculos' : 'Sigur'}</span>
-                    <div class="neo-detail"><span>Diametru estimat</span><span>${diamMin} – ${diamMax} m</span></div>
-                    <div class="neo-detail"><span>Distanta minima</span><span>${(missKm / 1e6).toFixed(2)} mil. km</span></div>
-                    <div class="neo-detail"><span>Distanta lunara</span><span>${missLunar.toFixed(1)} LD</span></div>
-                    <div class="neo-detail"><span>Viteza relativa</span><span>${Math.round(velocity).toLocaleString()} km/h</span></div>
-                </div>
-            `;
+        for (const neo of neos.slice(0,8)) {
+            const ap = neo.close_approach_data[0]; const hz = neo.is_potentially_hazardous_asteroid;
+            const dMin = neo.estimated_diameter.meters.estimated_diameter_min.toFixed(0);
+            const dMax = neo.estimated_diameter.meters.estimated_diameter_max.toFixed(0);
+            const mk = parseFloat(ap?.miss_distance?.kilometers||0);
+            const ml = parseFloat(ap?.miss_distance?.lunar||0);
+            const vel = parseFloat(ap?.relative_velocity?.kilometers_per_hour||0);
+            html += '<div class="neo-card"><h4>' + neo.name.replace(/[()]/g,'') + '</h4>';
+            html += '<span class="hazard ' + (hz?'danger':'safe') + '">' + (hz?'Potential periculos':'Sigur') + '</span>';
+            html += '<div class="neo-detail"><span>Diametru</span><span>' + dMin + ' – ' + dMax + ' m</span></div>';
+            html += '<div class="neo-detail"><span>Distanta minima</span><span>' + (mk/1e6).toFixed(2) + ' mil. km</span></div>';
+            html += '<div class="neo-detail"><span>Distanta lunara</span><span>' + ml.toFixed(1) + ' LD</span></div>';
+            html += '<div class="neo-detail"><span>Viteza</span><span>' + Math.round(vel).toLocaleString() + ' km/h</span></div></div>';
         }
         container.innerHTML = html;
-    } catch (e) {
-        document.getElementById('neo-container').innerHTML = '<div class="loader">Nu s-au putut incarca datele NEO.</div>';
-    }
+    } catch (e) { document.getElementById('neo-container').innerHTML = '<div class="loader">Nu s-au putut incarca datele NEO.</div>'; }
 }
 
 // ================================================================
-// MARS ROVER PHOTOS (with fallback chain)
-// ================================================================
-async function loadMarsPhotos() {
-    const container = document.getElementById('mars-container');
-
-    try {
-        // Attempt 1: Curiosity latest_photos
-        let photos = await tryMarsEndpoint(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/latest_photos?api_key=${NASA_API_KEY}`, 'latest_photos');
-
-        // Attempt 2: Curiosity sol=3900
-        if (!photos || photos.length === 0) {
-            photos = await tryMarsEndpoint(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=3900&page=1&api_key=${NASA_API_KEY}`, 'photos');
-        }
-
-        // Attempt 3: Curiosity sol=1000
-        if (!photos || photos.length === 0) {
-            photos = await tryMarsEndpoint(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=1&api_key=${NASA_API_KEY}`, 'photos');
-        }
-
-        // Attempt 4: Perseverance latest_photos
-        if (!photos || photos.length === 0) {
-            photos = await tryMarsEndpoint(`https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/latest_photos?api_key=${NASA_API_KEY}`, 'latest_photos');
-        }
-
-        // Attempt 5: Perseverance sol=500
-        if (!photos || photos.length === 0) {
-            photos = await tryMarsEndpoint(`https://api.nasa.gov/mars-photos/api/v1/rovers/perseverance/photos?sol=500&page=1&api_key=${NASA_API_KEY}`, 'photos');
-        }
-
-        if (!photos || photos.length === 0) {
-            container.innerHTML = `
-                <div class="loader" style="grid-column: 1/-1;">
-                    <p>Nu sunt disponibile fotografii recente de pe Marte in acest moment.</p>
-                    <p style="margin-top: 1rem;"><a href="https://mars.nasa.gov/multimedia/images/" target="_blank" style="color: var(--orange); text-decoration: underline;">Viziteaza Galeria NASA Mars</a></p>
-                </div>
-            `;
-            return;
-        }
-
-        let html = '';
-        for (const photo of photos.slice(0, 8)) {
-            html += `
-                <div class="mars-card">
-                    <img src="${photo.img_src}" alt="Mars - ${photo.camera.full_name}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 200%22><rect fill=%22%231a1a2e%22 width=%22400%22 height=%22200%22/><text x=%2250%%22 y=%2250%%22 fill=%22%23666%22 text-anchor=%22middle%22 font-size=%2214%22>Imagine indisponibila</text></svg>'">
-                    <div class="mars-info">
-                        <h4>${photo.camera.full_name}</h4>
-                        <p>Sol ${photo.sol} &bull; ${photo.earth_date}</p>
-                        <p>${photo.rover.name} — ${photo.rover.status}</p>
-                    </div>
-                </div>
-            `;
-        }
-        container.innerHTML = html;
-    } catch (e) {
-        console.error('Mars photos error:', e);
-        container.innerHTML = `
-            <div class="loader" style="grid-column: 1/-1;">
-                <p>Nu s-au putut incarca fotografiile de pe Marte.</p>
-                <p style="margin-top: 1rem;"><a href="https://mars.nasa.gov/multimedia/images/" target="_blank" style="color: var(--orange); text-decoration: underline;">Viziteaza Galeria NASA Mars</a></p>
-            </div>
-        `;
-    }
-}
-
-async function tryMarsEndpoint(url, key) {
-    try {
-        const res = await fetch(url);
-        if (!res.ok) return null;
-        const data = await res.json();
-        return data[key] || data.photos || null;
-    } catch {
-        return null;
-    }
-}
-
-// ================================================================
-// SPACE NEWS (Spaceflight News API)
+// SPACE NEWS — auto-refresh every 5 minutes
 // ================================================================
 async function loadNews() {
     const container = document.getElementById('news-container');
     try {
         const res = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=6');
-        const data = await res.json();
-        const articles = data.results || [];
-
-        if (articles.length === 0) {
-            container.innerHTML = '<div class="loader">Nicio stire disponibila in acest moment.</div>';
-            return;
-        }
-
+        const data = await res.json(); const articles = data.results || [];
+        if (articles.length === 0) { container.innerHTML = '<div class="loader">Nicio stire disponibila.</div>'; return; }
         let html = '';
-        for (const article of articles) {
-            const pubDate = article.published_at ? new Date(article.published_at).toLocaleDateString('ro-RO', {
-                day: 'numeric', month: 'long', year: 'numeric'
-            }) : '';
-            const source = article.news_site || 'Necunoscut';
-            const summary = article.summary ? (article.summary.length > 200 ? article.summary.substring(0, 197) + '...' : article.summary) : '';
-
-            html += `
-                <div class="news-card">
-                    <h4>${article.title}</h4>
-                    <div class="news-meta">${source} &bull; ${pubDate}</div>
-                    <div class="news-summary">${summary}</div>
-                    <a class="news-link" href="${article.url}" target="_blank" rel="noopener noreferrer">Citeste articolul &rarr;</a>
-                </div>
-            `;
+        for (const a of articles) {
+            const pd = a.published_at ? new Date(a.published_at).toLocaleDateString('ro-RO', { day:'numeric', month:'long', year:'numeric' }) : '';
+            const src = a.news_site || 'Necunoscut';
+            const sum = a.summary ? (a.summary.length > 200 ? a.summary.substring(0,197) + '...' : a.summary) : '';
+            html += '<div class="news-card"><h4>' + a.title + '</h4><div class="news-meta">' + src + ' &bull; ' + pd + '</div><div class="news-summary">' + sum + '</div><a class="news-link" href="' + a.url + '" target="_blank" rel="noopener noreferrer">Citeste articolul &rarr;</a></div>';
         }
         container.innerHTML = html;
-    } catch (e) {
-        console.error('News error:', e);
-        container.innerHTML = '<div class="loader">Nu s-au putut incarca stirile spatiale.</div>';
-    }
+    } catch (e) { container.innerHTML = '<div class="loader">Nu s-au putut incarca stirile.</div>'; }
 }
 
 // ================================================================
 // INIT & INTERVALS
 // ================================================================
-function loadAllData() {
-    loadAPOD();
-    updateISS();
-    loadPeopleInSpace();
-    loadSatellites();
-    loadLaunches();
-    loadNEO();
-    loadMarsPhotos();
-    loadNews();
-}
-
+function loadAllData() { loadAPOD(); initTracker(); loadPeopleInSpace(); loadSatellites(); loadLaunches(); loadNEO(); loadNews(); }
 loadAllData();
 
-// ISS: every 5 seconds
-setInterval(updateISS, 5000);
-
-// Satellites: every 30 seconds
-setInterval(async () => {
-    await loadTop5Satellites();
-    renderSatellites();
-    drawSatMap();
-}, 30000);
-
-// Countdowns: every 1 second
+// Tracker: every 3s (computed locally, no API call)
+setInterval(updateTrackerPosition, 3000);
+// Satellite positions: every 15s (computed locally)
+setInterval(() => { updateSatPositions(); renderSatellites(); drawSatMap(); }, 15000);
+// Countdowns: every 1s
 setInterval(updateCountdowns, 1000);
-
-// Redraw sat map on resize
-window.addEventListener('resize', () => {
-    drawSatMap();
-});
-
-// Intersection observer for nav active state
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const id = entry.target.id;
-            document.querySelectorAll('.nav-links a').forEach(a => {
-                a.classList.toggle('active', a.getAttribute('href') === '#' + id);
-            });
-        }
-    });
-}, { threshold: 0.3 });
-
+// News: auto-refresh every 5 minutes
+setInterval(loadNews, 300000);
+// Resize
+window.addEventListener('resize', () => { drawSatMap(); if (trackerTLE) updateTrackerPosition(); });
+// Nav observer
+const observer = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) { const id = entry.target.id; document.querySelectorAll('.nav-links a').forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + id); }); } }); }, { threshold: 0.3 });
 document.querySelectorAll('.section').forEach(s => observer.observe(s));
 </script>
 </body>
